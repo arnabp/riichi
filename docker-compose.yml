@@ -1,0 +1,12 @@
+services:
+  riichi-bot:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - bot-data:/app/data
+    environment:
+      STATE_FILE: /app/data/seen_games.json
+
+volumes:
+  bot-data:
