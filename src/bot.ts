@@ -3,7 +3,7 @@ import {
   EmbedBuilder,
   GatewayIntentBits,
   Colors,
-  TextBasedChannel,
+  type SendableChannels,
 } from "discord.js";
 import { RCGame, RCPlayer, RCLeaderboardEntry, RCTournamentInfo } from "./riichicity.ts";
 import { TournamentConfig } from "./tracker.ts";
@@ -132,10 +132,10 @@ function buildQueueEmbed(config: TournamentConfig, info: RCTournamentInfo): Embe
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-async function fetchTextChannel(client: Client, channelId: string): Promise<TextBasedChannel | null> {
+async function fetchTextChannel(client: Client, channelId: string): Promise<SendableChannels | null> {
   const channel = await client.channels.fetch(channelId);
-  if (!channel || !channel.isTextBased()) {
-    console.error(`[Bot] Channel ${channelId} not found or not text-based`);
+  if (!channel?.isSendable()) {
+    console.error(`[Bot] Channel ${channelId} not found or not sendable`);
     return null;
   }
   return channel;
