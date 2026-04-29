@@ -106,11 +106,11 @@ async function runPoll(
   lastLeaderHash: Map<string, string>,
   lastQueueKey: Map<string, string>,
 ) {
-  const pollStart = Date.now();
   try {
     await withSessionRetry(rcClient, async () => {
       // ── New completed games → games channel ──────────────────────────────
       const newGames = await tracker.poll();
+      newGames.sort((a, b) => a.game.endTime - b.game.endTime);
       for (const { config, game } of newGames) {
         console.log(
           `[Main] New game in "${config.label}": ${game.paiPuId} — winner: ${game.players[0]?.nickname}`
@@ -149,7 +149,7 @@ async function runPoll(
         }
       }
     });
-    console.log(`[Main] Poll complete (${Date.now() - pollStart}ms)`);
+    // console.log(`[Main] Poll complete (${Date.now() - pollStart}ms)`);
   } catch (err) {
     // Log but don't crash the poll loop
     console.error("[Main] Poll error:", err);

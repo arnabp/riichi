@@ -8,7 +8,6 @@ import {
 import { RCGame, RCPlayer, RCLeaderboardEntry, RCTournamentInfo } from "./riichicity.ts";
 import { TournamentConfig } from "./tracker.ts";
 
-const PLACEMENT_MEDALS = ["🥇", "🥈", "🥉", "4️⃣"];
 const RANK_EMOJIS = ["🥇", "🥈", "🥉"];
 
 export function createDiscordClient(): Client {
@@ -39,8 +38,7 @@ function buildResultEmbed(config: TournamentConfig, game: RCGame): EmbedBuilder 
 }
 
 function formatPlayerLine(player: RCPlayer): string {
-  const medal = PLACEMENT_MEDALS[player.rank - 1] ?? `${player.rank}.`;
-  return `${medal} **${escapeMarkdown(player.nickname)}** — ${formatScore(player.points)}`;
+  return `${player.rank}. **${escapeMarkdown(player.nickname)}** — ${formatScore(player.points)}`;
 }
 
 // ── Status channel — leaderboard ──────────────────────────────────────────────
