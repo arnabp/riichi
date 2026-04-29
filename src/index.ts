@@ -90,12 +90,13 @@ async function main() {
   const lastLeaderHash = new Map<string, string>();
   const lastQueueKey = new Map<string, string>();
 
-  // Run one poll immediately, then on interval
-  await runPoll(rcClient, tracker, discordClient, lastLeaderHash, lastQueueKey);
-
-  setInterval(async () => {
+  // Run one poll immediately, then loop sequentially (await each before scheduling next,
+  // so a slow poll can't stack up concurrent runs)
+  const loop = async () => {
     await runPoll(rcClient, tracker, discordClient, lastLeaderHash, lastQueueKey);
-  }, POLL_INTERVAL_MS);
+    setTimeout(loop, POLL_INTERVAL_MS);
+  };
+  loop();
 }
 
 async function runPoll(
@@ -105,6 +106,7 @@ async function runPoll(
   lastLeaderHash: Map<string, string>,
   lastQueueKey: Map<string, string>,
 ) {
+  const pollStart = Date.now();
   try {
     await withSessionRetry(rcClient, async () => {
       // ── New completed games → games channel ──────────────────────────────
@@ -147,6 +149,7 @@ async function runPoll(
         }
       }
     });
+    console.log(`[Main] Poll complete (${Date.now() - pollStart}ms)`);
   } catch (err) {
     // Log but don't crash the poll loop
     console.error("[Main] Poll error:", err);
