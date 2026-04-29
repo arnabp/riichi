@@ -1,12 +1,14 @@
 services:
   riichi-bot:
-    build: .
+    image: ghcr.io/arnabp/riichi:latest
+    pull_policy: always
     restart: unless-stopped
     env_file: .env
     volumes:
       - bot-data:/app/data
     environment:
       STATE_FILE: /app/data/seen_games.json
+      STATUS_FILE: /app/data/status_state.json
 
 volumes:
   bot-data:

@@ -194,3 +194,8 @@ scratch*.{js,ts,tsx,cjs,mjs}
 scripts/lldb-inline
 
 test/integration/bun-types/fixture/bun.lock
+# Runtime state
+seen_games.json
+seen_games.json.tmp
+status_state.json
+status_state.json.tmp

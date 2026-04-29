@@ -67,9 +67,10 @@ interface EnterSelfBuildData {
   classifyID: string;
   matchID: number;
   onlineSize: number;
-  startedSize: number;
+  startedSize: number; // total players in active state (in games + in queue)
   roomSize: number;
 }
+
 
 interface SelfRankData {
   rankList: {
@@ -169,12 +170,21 @@ export class RiichiCityClient {
       id: tournamentId,
     });
     if (data.classifyID == null) throw new Error("enterSelfBuild response missing classifyID");
+    const classifyId = String(data.classifyID);
+
+    // readOnlineRoom gives us the actual ongoing game rooms; derive queue from the difference
+    const rooms = await this.post<{ playerCount: number }[]>("/record/readOnlineRoom", {
+      classifyID: classifyId,
+    });
+    const ongoingGames = rooms.length;
+    const playersInGames = rooms.reduce((sum, r) => sum + r.playerCount, 0);
+
     return {
-      classifyId: String(data.classifyID),
+      classifyId,
       matchId: data.matchID,
       onlineSize: data.onlineSize,
-      ongoingGames: data.roomSize,
-      queueSize: data.startedSize,
+      ongoingGames,
+      queueSize: Math.max(0, data.startedSize - playersInGames),
     };
   }
 
