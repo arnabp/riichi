@@ -262,7 +262,7 @@ export class RiichiCityClient {
 
     const json = await res.json() as RCApiResponse<T>;
     if (json.code !== 0) {
-      if (json.code === 401 || json.code === 10001) {
+      if (json.code === 401 || json.code === 10001 || json.code === 10) {
         throw new SessionExpiredError(path, json.code);
       }
       throw new Error(`RC API error ${json.code} on ${path}: ${json.message}`);
