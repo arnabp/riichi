@@ -8,7 +8,13 @@ import {
 } from "discord.js";
 import { RCGame, RCPlayer, RCLeaderboardEntry, RCTournamentInfo } from "./riichicity.ts";
 import { TournamentConfig } from "./tracker.ts";
-import { SeasonSummary, standingsTable, dateRange, formatGameRef } from "./stats.ts";
+import {
+  SeasonSummary,
+  standingsTable,
+  dateRange,
+  formatGameRef,
+  formatRankScore,
+} from "./stats.ts";
 
 const RANK_EMOJIS = ["🥇", "🥈", "🥉"];
 
@@ -90,7 +96,7 @@ function buildLeaderboardEmbed(config: TournamentConfig, entries: RCLeaderboardE
   const lines = entries.map((e) => {
     const prefix = RANK_EMOJIS[e.rank - 1] ?? `**${e.rank}.**`;
     const games = e.gamesPlayed === 1 ? "1 game" : `${e.gamesPlayed} games`;
-    return `${prefix} **${escapeMarkdown(e.nickname)}** — ${e.rankScore.toLocaleString("en-US")} pts *(${games})*`;
+    return `${prefix} **${escapeMarkdown(e.nickname)}** — ${formatRankScore(e.rankScore)} pts *(${games})*`;
   });
 
   return new EmbedBuilder()
@@ -165,7 +171,7 @@ export function buildSeasonSummaryEmbeds(summary: SeasonSummary): EmbedBuilder[]
 
   const podium = summary.players.slice(0, 3).map((p, i) =>
     `${RANK_EMOJIS[i]} **${escapeMarkdown(p.nickname)}** — ` +
-    `${p.rankScore != null ? formatScore(p.rankScore) : "—"} pts ` +
+    `${p.rankScore != null ? formatRankScore(p.rankScore) : "—"} pts ` +
     `*(${p.gamesPlayed} games, avg place ${p.avgPlacement.toFixed(2)})*`
   );
   if (podium.length) header.addFields({ name: "Podium", value: podium.join("\n") });

@@ -5,7 +5,7 @@
 //           bun run stats -- --player Mookjong
 
 import { listArchives, loadArchive } from "./archive.ts";
-import { summarize, formatSummaryText, pct, signed } from "./stats.ts";
+import { summarize, formatSummaryText, pct, signed, formatRankScore } from "./stats.ts";
 
 const args = process.argv.slice(2);
 const playerFlag = args.indexOf("--player");
@@ -43,7 +43,7 @@ if (!playerName) {
   }
   console.log(`=== ${p.nickname} — ${summary.seasonLabel} ===`);
   console.log(`Standing:        ${p.leaderboardRank ?? "—"}` +
-    (p.rankScore != null ? `  (${signed(p.rankScore)} pts)` : ""));
+    (p.rankScore != null ? `  (${formatRankScore(p.rankScore)} pts)` : ""));
   console.log(`Games played:    ${p.gamesPlayed}`);
   console.log(`Avg placement:   ${p.avgPlacement.toFixed(3)}`);
   console.log(`Placements:      1st ${p.placements[0]} · 2nd ${p.placements[1]} · ` +

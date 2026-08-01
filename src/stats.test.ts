@@ -1,5 +1,5 @@
 import { describe, it, expect } from "bun:test";
-import { summarize } from "./stats.ts";
+import { summarize, formatRankScore, standingsTable } from "./stats.ts";
 import { SeasonArchive } from "./archive.ts";
 import { RCGame } from "./riichicity.ts";
 
@@ -124,5 +124,51 @@ describe("summarize", () => {
     expect(s.players).toEqual([]);
     expect(s.highestScore).toBeUndefined();
     expect(s.firstGameAt).toBeUndefined();
+  });
+});
+
+describe("formatRankScore", () => {
+  // The API stores rank score with one implied decimal: the Riichi City client
+  // renders a stored 12600 as "1260.0", and the bot has to match it.
+  it("shifts the implied decimal place", () => {
+    expect(formatRankScore(12600)).toBe("1,260.0");
+    expect(formatRankScore(5962)).toBe("596.2");
+  });
+
+  it("handles negative scores", () => {
+    expect(formatRankScore(-11843)).toBe("-1,184.3");
+    expect(formatRankScore(-309)).toBe("-30.9");
+  });
+
+  it("always shows exactly one decimal place", () => {
+    expect(formatRankScore(0)).toBe("0.0");
+    expect(formatRankScore(2390)).toBe("239.0");
+    expect(formatRankScore(5)).toBe("0.5");
+  });
+
+  it("does not lose precision on values that are inexact in binary", () => {
+    expect(formatRankScore(1016)).toBe("101.6");
+    expect(formatRankScore(-1453)).toBe("-145.3");
+  });
+});
+
+describe("standingsTable", () => {
+  it("renders rank score in client units, not raw API units", () => {
+    const s = summarize(archive(
+      [game("g1", 1000, [["A", 50000], ["B", 30000], ["C", 15000], ["D", 5000]])],
+      [{ rank: 1, userID: 1, nickname: "A", rankScore: 12600, gamesPlayed: 1 }],
+    ));
+    const table = standingsTable(s);
+    expect(table).toContain("1,260.0");
+    expect(table).not.toContain("12,600");
+  });
+
+  it("leaves per-game scores unscaled", () => {
+    // Game points are true mahjong end scores and must not be shifted.
+    const s = summarize(archive(
+      [game("g1", 1000, [["A", 50000], ["B", 30000], ["C", 15000], ["D", 5000]])]
+    ));
+    expect(s.players[0].avgPoints).toBe(50000);
+    expect(s.highestScore!.points).toBe(50000);
   });
 });

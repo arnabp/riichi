@@ -139,7 +139,7 @@ export function standingsTable(s: SeasonSummary): string {
   const rows = s.players.map((p, i) => [
     String(p.leaderboardRank ?? i + 1),
     p.nickname,
-    p.rankScore != null ? p.rankScore.toLocaleString("en-US") : "—",
+    p.rankScore != null ? formatRankScore(p.rankScore) : "—",
     String(p.gamesPlayed),
     p.avgPlacement.toFixed(2),
     String(p.placements[0]),
@@ -198,6 +198,22 @@ function pad(s: string, width: number): string {
 
 export function signed(n: number): string {
   return (n > 0 ? "+" : "") + n.toLocaleString("en-US");
+}
+
+// The API reports tournament rank score as a fixed-point integer with one
+// implied decimal place: the game client shows a stored 12600 as "1260.0".
+// Archives keep the raw value as the API returned it, so every user-facing
+// render goes through here to stay consistent with the Riichi City client.
+//
+// Note this applies only to rankScore. Per-game `points` are true mahjong end
+// scores and are not scaled — they sum to 100000 per game.
+export const RANK_SCORE_SCALE = 10;
+
+export function formatRankScore(raw: number): string {
+  return (raw / RANK_SCORE_SCALE).toLocaleString("en-US", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  });
 }
 
 export function pct(n: number): string {
