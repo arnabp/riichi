@@ -15,6 +15,7 @@ import {
   formatGameRef,
   formatRankScore,
 } from "./stats.ts";
+import { gamePoints, formatGamePoints } from "./scoring.ts";
 
 const RANK_EMOJIS = ["🥇", "🥈", "🥉"];
 
@@ -62,7 +63,11 @@ function buildResultEmbed(config: TournamentConfig, game: RCGame): EmbedBuilder 
 }
 
 function formatPlayerLine(player: RCPlayer): string {
-  return `${player.rank}. **${escapeMarkdown(player.nickname)}** — ${formatScore(player.points)}`;
+  // Raw table score plus the tournament points it was worth, since the game log
+  // only carries the former.
+  const earned = formatGamePoints(gamePoints(player.points, player.rank));
+  return `${player.rank}. **${escapeMarkdown(player.nickname)}** — ` +
+    `${formatScore(player.points)} *(${earned} pts)*`;
 }
 
 // ── Status channel — leaderboard ──────────────────────────────────────────────
@@ -200,7 +205,8 @@ export function buildSeasonSummaryEmbeds(summary: SeasonSummary): EmbedBuilder[]
       new EmbedBuilder().setColor(Colors.Blue).setDescription("```\n" + chunk + "\n```")
     );
   }
-  embeds[embeds.length - 1].setFooter({ text: "Avg = average placement · Avg± = average end score" })
+  embeds[embeds.length - 1]
+    .setFooter({ text: "1/2/3/4 = placements · AvgScore = average end score" })
     .setTimestamp();
   return embeds;
 }

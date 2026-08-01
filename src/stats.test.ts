@@ -163,6 +163,27 @@ describe("standingsTable", () => {
     expect(table).not.toContain("12,600");
   });
 
+  it("stays narrow enough for a Discord embed", () => {
+    // Embeds have a fixed maximum width and wrap badly past ~55 monospace
+    // characters, so the table must not grow new columns unchecked.
+    const games = Array.from({ length: 40 }, (_, i) =>
+      game(`g${i}`, 1000 + i, [["A", 50000], ["B", 30000], ["C", 15000], ["D", 5000]]));
+    const s = summarize(archive(games, [
+      { rank: 1, userID: 1, nickname: "averyverylongname", rankScore: -112345, gamesPlayed: 40 },
+    ]));
+    for (const line of standingsTable(s).split("\n")) {
+      expect(line.length).toBeLessThanOrEqual(55);
+    }
+  });
+
+  it("omits games played, which is recoverable from the placement counts", () => {
+    const s = summarize(archive(
+      [game("g1", 1000, [["A", 50000], ["B", 30000], ["C", 15000], ["D", 5000]])]
+    ));
+    expect(standingsTable(s)).toContain("1/2/3/4");
+    expect(standingsTable(s)).not.toContain(" G ");
+  });
+
   it("leaves per-game scores unscaled", () => {
     // Game points are true mahjong end scores and must not be shifted.
     const s = summarize(archive(

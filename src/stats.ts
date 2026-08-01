@@ -134,18 +134,17 @@ export function summarize(archive: SeasonArchive): SeasonSummary {
 
 // Aligned standings table, shared by the console output and the Discord embed
 // (Discord renders it inside a code block, which is also monospace).
+// Kept deliberately narrow: a Discord embed has a fixed maximum width regardless
+// of window size, and wraps (badly) past roughly 55 monospace characters. Games
+// played is omitted because the placement counts already sum to it, and average
+// placement is available per-player via `bun run stats -- --player <name>`.
 export function standingsTable(s: SeasonSummary): string {
-  const head = ["#", "Player", "Pts", "G", "Avg", "1st", "2nd", "3rd", "4th", "Avg±"];
+  const head = ["#", "Player", "Pts", "1/2/3/4", "AvgScore"];
   const rows = s.players.map((p, i) => [
     String(p.leaderboardRank ?? i + 1),
     p.nickname,
     p.rankScore != null ? formatRankScore(p.rankScore) : "—",
-    String(p.gamesPlayed),
-    p.avgPlacement.toFixed(2),
-    String(p.placements[0]),
-    String(p.placements[1]),
-    String(p.placements[2]),
-    String(p.placements[3]),
+    p.placements.join("/"),
     signed(Math.round(p.avgPoints)),
   ]);
   return table([head, ...rows]);

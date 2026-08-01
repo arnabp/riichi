@@ -21,6 +21,33 @@ State lives in JSON files (`data/`, mounted as a Docker volume in production):
 | `season_state.json` | current season number + label, and past seasons |
 | `archive/sNN-<label>.json` | full frozen record of a finished season |
 
+## Scoring
+
+Two different numbers show up in the bot's output, and they are not in the same units:
+
+- **Table score** — the raw end-of-game score (e.g. `83,300`). Sums to 100,000
+  per four-player game. Used as-is.
+- **Points** — what the game was worth in the tournament (e.g. `+103.3`). The
+  standings are cumulative points.
+
+`rankScore` from the API is fixed-point with one implied decimal: a stored
+`12600` is `1260.0` in the client. Archives keep the raw value and every
+user-facing render goes through `formatRankScore` (`src/stats.ts`).
+
+The game log returns only table scores, never the points a game was worth, so
+`src/scoring.ts` recomputes them:
+
+```
+points = (tableScore - 30000)/1000 + uma[rank] + 20 if 1st
+uma = 30 / 10 / -10 / -30
+```
+
+These settings were derived from the Spring League 2026 archive and are pinned
+by a test that replays all 137 games and compares against the tournament's own
+final standings — so if the league's settings change, `scoring.test.ts` fails
+rather than the embeds going quietly wrong. Override via `LEAGUE_RETURN_POINTS`,
+`LEAGUE_UMA`, and `LEAGUE_OKA` (see `.env.example`).
+
 ## Seasons
 
 The league reuses **one tournament ID** across seasons — the tournament is reset
