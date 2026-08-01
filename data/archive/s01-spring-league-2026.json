@@ -1,0 +1,4357 @@
+{
+  "seasonLabel": "Spring League 2026",
+  "seasonNumber": 1,
+  "tournamentId": "6980483",
+  "classifyId": "d7nabn2tglb1nai4tb30",
+  "matchId": 6980483,
+  "archivedAt": "2026-08-01T01:17:16.167Z",
+  "games": [
+    {
+      "paiPuId": "d7nbc0s6mci8rkp930d0",
+      "endTime": 1777253756,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 44200,
+          "rank": 1
+        },
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 27000,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 20800,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 8000,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7nbsbpbimvqmgc857g0",
+      "endTime": 1777256123,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 43900,
+          "rank": 1
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 37500,
+          "rank": 2
+        },
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 25500,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": -6900,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7ncfcpbimvqmgc88050",
+      "endTime": 1777258574,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 39700,
+          "rank": 1
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 29400,
+          "rank": 2
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 18900,
+          "rank": 3
+        },
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 12000,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7ndlok6mci8rkp9e7rg",
+      "endTime": 1777263519,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 30000,
+          "rank": 1
+        },
+        {
+          "uid": 4115101978,
+          "nickname": "krafty",
+          "points": 29100,
+          "rank": 2
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 28200,
+          "rank": 3
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 12700,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7nea2pbimvqmgc8hvg0",
+      "endTime": 1777265881,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 37300,
+          "rank": 1
+        },
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 33200,
+          "rank": 2
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 32100,
+          "rank": 3
+        },
+        {
+          "uid": 4115101978,
+          "nickname": "krafty",
+          "points": -2600,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7nerfhbimvqmgc8ko7g",
+      "endTime": 1777268185,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 49000,
+          "rank": 1
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 32300,
+          "rank": 2
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 13800,
+          "rank": 3
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 4900,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7nfdu46mci8rkp9n7n0",
+      "endTime": 1777270845,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 53900,
+          "rank": 1
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 27900,
+          "rank": 2
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 10000,
+          "rank": 3
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 8200,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7nuuphb6vq6mlk60qhg",
+      "endTime": 1777333990,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 44800,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 29300,
+          "rank": 2
+        },
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": 20600,
+          "rank": 3
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 5300,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7nvsd1b6vq6mlk64dtg",
+      "endTime": 1777338128,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 41800,
+          "rank": 1
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 32900,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 16500,
+          "rank": 3
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 8800,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7o1931b6vq6mlk6am9g",
+      "endTime": 1777344370,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 815746474,
+          "nickname": "Yak Tuah",
+          "points": 48500,
+          "rank": 1
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 36500,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 9800,
+          "rank": 3
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 5200,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7okr9hb6vq6mlk9iobg",
+      "endTime": 1777424557,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 35900,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 31100,
+          "rank": 2
+        },
+        {
+          "uid": 815746474,
+          "nickname": "Yak Tuah",
+          "points": 26500,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 6500,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7olhg90nsih7l8b09q0",
+      "endTime": 1777425420,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": 63500,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 26000,
+          "rank": 2
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 22000,
+          "rank": 3
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": -11500,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7olokpb6vq6mlk9n6a0",
+      "endTime": 1777425849,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 70300,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 19000,
+          "rank": 2
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 18000,
+          "rank": 3
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": -7300,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7p9hkpb6vq6mlkd0gdg",
+      "endTime": 1777509463,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 48600,
+          "rank": 1
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 18000,
+          "rank": 2
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 17200,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 16200,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7pb9uhb6vq6mlkd8ag0",
+      "endTime": 1777516576,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 39600,
+          "rank": 1
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 36100,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 26900,
+          "rank": 3
+        },
+        {
+          "uid": 815746474,
+          "nickname": "Yak Tuah",
+          "points": -2600,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7pusqhb6vq6mlkgap7g",
+      "endTime": 1777597331,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 67400,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 27700,
+          "rank": 2
+        },
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": 18000,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": -13100,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7q00epb6vq6mlkgg3mg",
+      "endTime": 1777601473,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 56900,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 46500,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 16000,
+          "rank": 3
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": -19400,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7qlrv9b6vq6mlkk0ue0",
+      "endTime": 1777690419,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 40200,
+          "rank": 1
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 35500,
+          "rank": 2
+        },
+        {
+          "uid": 815746474,
+          "nickname": "Yak Tuah",
+          "points": 12400,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 11900,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7ra2m1b6vq6mlknb0cg",
+      "endTime": 1777773955,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 51700,
+          "rank": 1
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 32800,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 18500,
+          "rank": 3
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": -3000,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7ru2c9b6vq6mlkql73g",
+      "endTime": 1777855549,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 62300,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 46600,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": -3200,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": -5700,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7rups1b6vq6mlkqoin0",
+      "endTime": 1777858420,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 67400,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 34600,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 28000,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": -30000,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7s3oap0nsih7l8sthb0",
+      "endTime": 1777878935,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 54500,
+          "rank": 1
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 45700,
+          "rank": 2
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 27500,
+          "rank": 3
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": -27700,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7s4fo9b6vq6mlkrnq60",
+      "endTime": 1777881750,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 27000,
+          "rank": 1
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 24600,
+          "rank": 2
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 24300,
+          "rank": 3
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 24100,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7sj0s90nsih7l8vd8pg",
+      "endTime": 1777941224,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": 42500,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 42100,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 28300,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": -12900,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7sjmnh0nsih7l8vgc70",
+      "endTime": 1777944429,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 72800,
+          "rank": 1
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 25300,
+          "rank": 2
+        },
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": 16700,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": -14800,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7skifp0nsih7l8vkhlg",
+      "endTime": 1777947384,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 31600,
+          "rank": 1
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 29700,
+          "rank": 2
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 27600,
+          "rank": 3
+        },
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": 11100,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7t92890nsih7l92u1p0",
+      "endTime": 1778031689,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 815746474,
+          "nickname": "Yak Tuah",
+          "points": 43400,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 32100,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 17400,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 7100,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7t9re10nsih7l9320cg",
+      "endTime": 1778034943,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 73600,
+          "rank": 1
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 17400,
+          "rank": 2
+        },
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 16800,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": -7800,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7ttvtpb6vq6mll4rga0",
+      "endTime": 1778117495,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 48200,
+          "rank": 1
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 39600,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 12000,
+          "rank": 3
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 200,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7tuom10nsih7l969h0g",
+      "endTime": 1778119548,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 39700,
+          "rank": 1
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 38100,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 23000,
+          "rank": 3
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": -800,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7tv7r10nsih7l96bl10",
+      "endTime": 1778121633,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 62400,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 18200,
+          "rank": 2
+        },
+        {
+          "uid": 815746474,
+          "nickname": "Yak Tuah",
+          "points": 17200,
+          "rank": 3
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 2200,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7uhl6hb6vq6mll7r6sg",
+      "endTime": 1778197332,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 35600,
+          "rank": 1
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 33500,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 20600,
+          "rank": 3
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 10300,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7ui8490nsih7l9984lg",
+      "endTime": 1778199906,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 49600,
+          "rank": 1
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 30900,
+          "rank": 2
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 15700,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 3800,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7v53uh0nsih7l9c8fb0",
+      "endTime": 1778277860,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 815746474,
+          "nickname": "Yak Tuah",
+          "points": 41800,
+          "rank": 1
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 36000,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 26500,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": -4300,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7v97mpb6vq6mllbdv6g",
+      "endTime": 1778294164,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 33500,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 30900,
+          "rank": 2
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 24600,
+          "rank": 3
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 11000,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7v9ruhb6vq6mllbh5tg",
+      "endTime": 1778296004,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 43100,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 39900,
+          "rank": 2
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 11900,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 5100,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d7vaaah0nsih7l9cv99g",
+      "endTime": 1778298373,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 43000,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 41300,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 25100,
+          "rank": 3
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": -9400,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d80e3210nsih7l9isj4g",
+      "endTime": 1778445362,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": 31400,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 23100,
+          "rank": 2
+        },
+        {
+          "uid": 8118619109,
+          "nickname": "WhiteGirl",
+          "points": 22800,
+          "rank": 3
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 22700,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d80epc90nsih7l9iulcg",
+      "endTime": 1778448448,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 66000,
+          "rank": 1
+        },
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": 20300,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 8800,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 4900,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d80fim90nsih7l9j0teg",
+      "endTime": 1778450952,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 71600,
+          "rank": 1
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 20000,
+          "rank": 2
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 18700,
+          "rank": 3
+        },
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": -10300,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d80j7i90nsih7l9je4dg",
+      "endTime": 1778465532,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 71400,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 16100,
+          "rank": 2
+        },
+        {
+          "uid": 8118619703,
+          "nickname": "paru",
+          "points": 9100,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 3400,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d815h01b6vq6mlll026g",
+      "endTime": 1778541275,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 57500,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 44700,
+          "rank": 2
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 10600,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": -12800,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d81sochb6vq6mlloh4u0",
+      "endTime": 1778636684,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 46600,
+          "rank": 1
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 34900,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 26300,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": -7800,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d82h7shb6vq6mllrnig0",
+      "endTime": 1778719695,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 62500,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 26500,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 20600,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": -9600,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d82icghb6vq6mllrs6t0",
+      "endTime": 1778724073,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 35000,
+          "rank": 1
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 29300,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 28400,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 7300,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d836t9c6mcid1anmjg1g",
+      "endTime": 1778809252,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 87900,
+          "rank": 1
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 23300,
+          "rank": 2
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 19400,
+          "rank": 3
+        },
+        {
+          "uid": 815746474,
+          "nickname": "Yak Tuah",
+          "points": -30600,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d837kb9bimvsrjiv67bg",
+      "endTime": 1778811246,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 48300,
+          "rank": 1
+        },
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 38600,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 9300,
+          "rank": 3
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 3800,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d83n721bimvsrjj1vmqg",
+      "endTime": 1778876202,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8118619109,
+          "nickname": "WhiteGirl",
+          "points": 56200,
+          "rank": 1
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 25300,
+          "rank": 2
+        },
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": 19000,
+          "rank": 3
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": -500,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d83qp51bimvsrjj2cpdg",
+      "endTime": 1778890168,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 48600,
+          "rank": 1
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 44400,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 19900,
+          "rank": 3
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": -12900,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d84gu1c6mcid1anttis0",
+      "endTime": 1778981595,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 41000,
+          "rank": 1
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 38000,
+          "rank": 2
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 27900,
+          "rank": 3
+        },
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": -6900,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8559e1bimvsrjja0u7g",
+      "endTime": 1779064778,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 44800,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 28300,
+          "rank": 2
+        },
+        {
+          "uid": 815746474,
+          "nickname": "Yak Tuah",
+          "points": 19900,
+          "rank": 3
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 7000,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8562pc6mcid1ag1lce0",
+      "endTime": 1779067946,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 45000,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 34600,
+          "rank": 2
+        },
+        {
+          "uid": 815746474,
+          "nickname": "Yak Tuah",
+          "points": 21100,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": -700,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d85og7p0nsijmq9cdc10",
+      "endTime": 1779143407,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 36200,
+          "rank": 1
+        },
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": 27600,
+          "rank": 2
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 18200,
+          "rank": 3
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 18000,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d85p6q90nsijmq9cg380",
+      "endTime": 1779145352,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 31000,
+          "rank": 1
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 28700,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 21000,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 19300,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d85p6qh0nsijmq9cg3bg",
+      "endTime": 1779146528,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": 34400,
+          "rank": 1
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 25300,
+          "rank": 2
+        },
+        {
+          "uid": 815746474,
+          "nickname": "Yak Tuah",
+          "points": 22900,
+          "rank": 3
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 17400,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8717apb6vq0l0j0gnv0",
+      "endTime": 1779310021,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 39400,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 29300,
+          "rank": 2
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 20400,
+          "rank": 3
+        },
+        {
+          "uid": 8118619109,
+          "nickname": "WhiteGirl",
+          "points": 10900,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d871rv9b6vq0l0j0j710",
+      "endTime": 1779312590,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 69500,
+          "rank": 1
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 33900,
+          "rank": 2
+        },
+        {
+          "uid": 8118619109,
+          "nickname": "WhiteGirl",
+          "points": 2100,
+          "rank": 3
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": -5500,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d87qecc6mcic8d0bljo0",
+      "endTime": 1779413825,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 46300,
+          "rank": 1
+        },
+        {
+          "uid": 815746474,
+          "nickname": "Yak Tuah",
+          "points": 29100,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 17500,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 7100,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d89plo1bimvvqtg2avhg",
+      "endTime": 1779671893,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 33500,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 33200,
+          "rank": 2
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 22300,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 11000,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d89q8is6mcic8d0n3fkg",
+      "endTime": 1779674613,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 32000,
+          "rank": 1
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 29300,
+          "rank": 2
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 24300,
+          "rank": 3
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 14400,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d89r0epbimvvqtg2hk7g",
+      "endTime": 1779677095,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 40500,
+          "rank": 1
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 30600,
+          "rank": 2
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 16600,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 12300,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8bm3d9b6vq3mv5map0g",
+      "endTime": 1779920119,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 69200,
+          "rank": 1
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 15100,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 8700,
+          "rank": 3
+        },
+        {
+          "uid": 8118619109,
+          "nickname": "WhiteGirl",
+          "points": 7000,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8bnv210nsimjdcl4l80",
+      "endTime": 1779926916,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 34900,
+          "rank": 1
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 29600,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 21600,
+          "rank": 3
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 13900,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8csb99b6vq3mv5tivfg",
+      "endTime": 1780076733,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 61400,
+          "rank": 1
+        },
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": 25600,
+          "rank": 2
+        },
+        {
+          "uid": 8118619109,
+          "nickname": "WhiteGirl",
+          "points": 13000,
+          "rank": 3
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 0,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8ctaip0nsimjdcsb7og",
+      "endTime": 1780080502,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 49900,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 44100,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 21700,
+          "rank": 3
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": -15700,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8cu331b6vq3mv5tqsi0",
+      "endTime": 1780083408,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 51900,
+          "rank": 1
+        },
+        {
+          "uid": 8118619109,
+          "nickname": "WhiteGirl",
+          "points": 40100,
+          "rank": 2
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 15400,
+          "rank": 3
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": -7400,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8dov59b6vq3mv62urq0",
+      "endTime": 1780193838,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 75900,
+          "rank": 1
+        },
+        {
+          "uid": 815746474,
+          "nickname": "Yak Tuah",
+          "points": 46000,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": -3700,
+          "rank": 3
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": -18200,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8dpslpb6vq3mv6351n0",
+      "endTime": 1780197634,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 42600,
+          "rank": 1
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 37100,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 23500,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": -3200,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8ed55p0nsimjdd5fvlg",
+      "endTime": 1780276374,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 31800,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 31200,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 21500,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 15500,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8f1sbhb6vq3mv6apf40",
+      "endTime": 1780361385,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 74200,
+          "rank": 1
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 24200,
+          "rank": 2
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 22200,
+          "rank": 3
+        },
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": -20600,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8f2jrhb6vq3mv6at060",
+      "endTime": 1780364756,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 39800,
+          "rank": 1
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 39800,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 29000,
+          "rank": 3
+        },
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": -8600,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8fn8mpb6vq3mv6eq7jg",
+      "endTime": 1780449193,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 44700,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 26100,
+          "rank": 2
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 24800,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 4400,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8fo509b6vq3mv6ev6ag",
+      "endTime": 1780452650,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 39400,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 34300,
+          "rank": 2
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 19600,
+          "rank": 3
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 6700,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8for590nsimjdddlgl0",
+      "endTime": 1780454815,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 40000,
+          "rank": 1
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 31800,
+          "rank": 2
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 23500,
+          "rank": 3
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 4700,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8h1tc9b6vq3mv6mi6t0",
+      "endTime": 1780622927,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 45400,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 32700,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 25900,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": -4000,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8itmd1b6vq3mv71k58g",
+      "endTime": 1780868760,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8118619109,
+          "nickname": "WhiteGirl",
+          "points": 46100,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 32400,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 32100,
+          "rank": 3
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": -10600,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8j1g31b6vq3mv722m5g",
+      "endTime": 1780884296,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 45000,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 44500,
+          "rank": 2
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 5400,
+          "rank": 3
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 5100,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8j27r9b6vq3mv7263vg",
+      "endTime": 1780887230,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 62600,
+          "rank": 1
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 37200,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 10600,
+          "rank": 3
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": -10400,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8j4ss1b6vq3mv72kg50",
+      "endTime": 1780897423,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 38600,
+          "rank": 1
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 30500,
+          "rank": 2
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 17200,
+          "rank": 3
+        },
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 13700,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8j5dc9b6vq3mv72n3l0",
+      "endTime": 1780900232,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 52900,
+          "rank": 1
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 40600,
+          "rank": 2
+        },
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 5300,
+          "rank": 3
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 1200,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8jlfoh0nsimjde44ob0",
+      "endTime": 1780965206,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 50200,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 24000,
+          "rank": 2
+        },
+        {
+          "uid": 815746474,
+          "nickname": "Yak Tuah",
+          "points": 18200,
+          "rank": 3
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 7600,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8jlvj90nsimjde46uf0",
+      "endTime": 1780967436,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 43000,
+          "rank": 1
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 35000,
+          "rank": 2
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 19400,
+          "rank": 3
+        },
+        {
+          "uid": 815746474,
+          "nickname": "Yak Tuah",
+          "points": 2600,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8jmgupb6vq3mv75kpag",
+      "endTime": 1780969691,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 34000,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 30200,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 29800,
+          "rank": 3
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 6000,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8jnau10nsimjde4d6r0",
+      "endTime": 1780973516,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 46700,
+          "rank": 1
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 45400,
+          "rank": 2
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 8500,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": -600,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8k91e9bimvteu7s0r70",
+      "endTime": 1781046048,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 64400,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 52200,
+          "rank": 2
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": -4200,
+          "rank": 3
+        },
+        {
+          "uid": 8118619109,
+          "nickname": "WhiteGirl",
+          "points": -12400,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8l04d46mcia2car0sdg",
+      "endTime": 1781140892,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 77100,
+          "rank": 1
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 29600,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 9200,
+          "rank": 3
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": -15900,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8lkinc6mcia2caudg7g",
+      "endTime": 1781224679,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 42100,
+          "rank": 1
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 32600,
+          "rank": 2
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 31900,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": -6600,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8m9vj46mcia2cb1vd5g",
+      "endTime": 1781312275,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 84400,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 23300,
+          "rank": 2
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 2300,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": -10000,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8n03e1bimvteu0alv80",
+      "endTime": 1781402101,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 40100,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 35500,
+          "rank": 2
+        },
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": 23400,
+          "rank": 3
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 1000,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8o60u1bimvteu0h652g",
+      "endTime": 1781557957,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 42800,
+          "rank": 1
+        },
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": 25600,
+          "rank": 2
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 25200,
+          "rank": 3
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 6400,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8o9cr9bimvteu0hibr0",
+      "endTime": 1781571497,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 40500,
+          "rank": 1
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 23100,
+          "rank": 2
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 20100,
+          "rank": 3
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 16300,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8ovgipbimvteu0l54ng",
+      "endTime": 1781663140,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 63200,
+          "rank": 1
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 48600,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": -1500,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": -10300,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8qsup102h9cau2ae12g",
+      "endTime": 1781913109,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 37600,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 27800,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 26600,
+          "rank": 3
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 8000,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8qtdgr3dkdcau5b3oqg",
+      "endTime": 1781916270,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 53200,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 19400,
+          "rank": 2
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 14600,
+          "rank": 3
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 12800,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8rla1b3dkdcau5f3230",
+      "endTime": 1782012769,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 40000,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 33100,
+          "rank": 2
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 13800,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 13100,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8rlnkj3dkdcau5f5e30",
+      "endTime": 1782015812,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 50100,
+          "rank": 1
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 19800,
+          "rank": 2
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 16800,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 13300,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8srk7cj4ak9asfr0f00",
+      "endTime": 1782170432,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 38800,
+          "rank": 1
+        },
+        {
+          "uid": 6113057604,
+          "nickname": "eebo",
+          "points": 30800,
+          "rank": 2
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 30400,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 0,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8ss7okj4ak9asfr3030",
+      "endTime": 1782172381,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 48100,
+          "rank": 1
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 33400,
+          "rank": 2
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 26300,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": -7800,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8tjiqgmjqrp9gcqij6g",
+      "endTime": 1782268252,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 33200,
+          "rank": 1
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 24200,
+          "rank": 2
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 22100,
+          "rank": 3
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 20500,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d8tk8fomjqrp9gcqli10",
+      "endTime": 1782271189,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 54000,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 29200,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 12200,
+          "rank": 3
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 4600,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d90stlkj4ak9as8eouhg",
+      "endTime": 1782699604,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 37200,
+          "rank": 1
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 28100,
+          "rank": 2
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 27900,
+          "rank": 3
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 6800,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d91h7qr3dkd6f1robvfg",
+      "endTime": 1782783684,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 68100,
+          "rank": 1
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 21300,
+          "rank": 2
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 10000,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 600,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d926pa0mjqrittpv7420",
+      "endTime": 1782871926,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 34300,
+          "rank": 1
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 26100,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 24000,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 15600,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d927ingmjqrittpva9dg",
+      "endTime": 1782874519,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 37000,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 31600,
+          "rank": 2
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 23700,
+          "rank": 3
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 7700,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d93eu38mjqrittq5b290",
+      "endTime": 1783035553,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 37800,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 31500,
+          "rank": 2
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 19600,
+          "rank": 3
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 11100,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d93feb4j4ak2tko950k0",
+      "endTime": 1783038201,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 42700,
+          "rank": 1
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 40900,
+          "rank": 2
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 12100,
+          "rank": 3
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 4300,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d9407psj4ak2tkobubvg",
+      "endTime": 1783107505,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8118619109,
+          "nickname": "WhiteGirl",
+          "points": 44000,
+          "rank": 1
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 24900,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 21700,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 9400,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d940vssj4ak2tkoc0gp0",
+      "endTime": 1783109788,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 43900,
+          "rank": 1
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 34200,
+          "rank": 2
+        },
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 26000,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": -4100,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d940vvkj4ak2tkoc0h9g",
+      "endTime": 1783110475,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 60800,
+          "rank": 1
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 33300,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 6000,
+          "rank": 3
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": -100,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d941oiomjqrittq8b8tg",
+      "endTime": 1783113173,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 33300,
+          "rank": 1
+        },
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 29000,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 25300,
+          "rank": 3
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 12400,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d941oigmjqrittq8b8q0",
+      "endTime": 1783113616,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 49700,
+          "rank": 1
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 23300,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 19600,
+          "rank": 3
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 7400,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d942ff8mjqrittq8dj2g",
+      "endTime": 1783116404,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 38900,
+          "rank": 1
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 34400,
+          "rank": 2
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 16200,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 10500,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d94lj6sj4ak2tkofbr9g",
+      "endTime": 1783194780,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 41700,
+          "rank": 1
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 34100,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 19100,
+          "rank": 3
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 5100,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d94mmq8mjqrittqbo1q0",
+      "endTime": 1783198979,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 57000,
+          "rank": 1
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 54800,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 5400,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": -17200,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d9645g4j4ak2tkomd5dg",
+      "endTime": 1783385512,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 62600,
+          "rank": 1
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 46500,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 33900,
+          "rank": 3
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": -43000,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d96o8nkj4ak2tkopf1j0",
+      "endTime": 1783467821,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 42900,
+          "rank": 1
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 25100,
+          "rank": 2
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 16100,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 15900,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d97b48djg58uejcmnf90",
+      "endTime": 1783544767,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 38400,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 28600,
+          "rank": 2
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 26200,
+          "rank": 3
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 6800,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d97bnnqgpooe5tefdccg",
+      "endTime": 1783547131,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 38600,
+          "rank": 1
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 32100,
+          "rank": 2
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 22800,
+          "rank": 3
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 6500,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d984ia2gpooe5tegjirg",
+      "endTime": 1783647855,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 47000,
+          "rank": 1
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 23000,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 16900,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 13100,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d984t8djg58uejcnv1pg",
+      "endTime": 1783649827,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 41500,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 40300,
+          "rank": 2
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 22100,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": -3900,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d985ct4j4ak2tkosd4r0",
+      "endTime": 1783652796,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 60800,
+          "rank": 1
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 41100,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 3500,
+          "rank": 3
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": -5400,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d98kveljg58uejcp42h0",
+      "endTime": 1783716136,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 73300,
+          "rank": 1
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 29700,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 8000,
+          "rank": 3
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": -11000,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d9a04c4j4ak2tkp0e2jg",
+      "endTime": 1783893050,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8118619109,
+          "nickname": "WhiteGirl",
+          "points": 34100,
+          "rank": 1
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 23300,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 21500,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 21100,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d9ap1japk70u453kt3l0",
+      "endTime": 1783995301,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 42600,
+          "rank": 1
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 30400,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 17800,
+          "rank": 3
+        },
+        {
+          "uid": 815746474,
+          "nickname": "Yak Tuah",
+          "points": 9200,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d9bf5ggmjqrittqvefeg",
+      "endTime": 1784085988,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 39600,
+          "rank": 1
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 36000,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 31800,
+          "rank": 3
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": -7400,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d9d9qo2gpooe5teqrt10",
+      "endTime": 1784326285,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 60100,
+          "rank": 1
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 20600,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 15800,
+          "rank": 3
+        },
+        {
+          "uid": 8115435540,
+          "nickname": "dongsmasher",
+          "points": 3500,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d9dukp2pk70u453qq7m0",
+      "endTime": 1784410261,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 37500,
+          "rank": 1
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 27700,
+          "rank": 2
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 19400,
+          "rank": 3
+        },
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 15400,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d9dv44rjgkquer1dug3g",
+      "endTime": 1784413462,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 46300,
+          "rank": 1
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 28300,
+          "rank": 2
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 16500,
+          "rank": 3
+        },
+        {
+          "uid": 8111465642,
+          "nickname": "chi",
+          "points": 8900,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d9eor1djg58uejd4q9pg",
+      "endTime": 1784518417,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 41900,
+          "rank": 1
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 27900,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 19900,
+          "rank": 3
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 10300,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d9epgfdjg58uejd4s2hg",
+      "endTime": 1784520905,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 49600,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 26200,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 17500,
+          "rank": 3
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 6700,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d9fadnomjqrs1822g1v0",
+      "endTime": 1784591168,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 66600,
+          "rank": 1
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 26500,
+          "rank": 2
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 5300,
+          "rank": 3
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 1600,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d9hc1ep02h99kniq7990",
+      "endTime": 1784859035,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 45200,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 29800,
+          "rank": 2
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 14200,
+          "rank": 3
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": 10800,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d9hdc833dkd9kpgr4ae0",
+      "endTime": 1784864798,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 42400,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 26400,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 25000,
+          "rank": 3
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 6200,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d9hvp733dkd9kpgtvu60",
+      "endTime": 1784939707,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 55400,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 32200,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 25800,
+          "rank": 3
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": -13400,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d9i0eq902h99knitboa0",
+      "endTime": 1784943103,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8112954504,
+          "nickname": "spg",
+          "points": 63200,
+          "rank": 1
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 25200,
+          "rank": 2
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 15600,
+          "rank": 3
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": -4000,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d9jbru102h99knj42ang",
+      "endTime": 1785120796,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 34000,
+          "rank": 1
+        },
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 27400,
+          "rank": 2
+        },
+        {
+          "uid": 8114148282,
+          "nickname": "catnip",
+          "points": 22800,
+          "rank": 3
+        },
+        {
+          "uid": 816989559,
+          "nickname": "KimMahjongUn",
+          "points": 15800,
+          "rank": 4
+        }
+      ]
+    },
+    {
+      "paiPuId": "d9km0c33dkd9kphb3qfg",
+      "endTime": 1785292774,
+      "playerCount": 4,
+      "players": [
+        {
+          "uid": 8110716447,
+          "nickname": "Mookjong",
+          "points": 83300,
+          "rank": 1
+        },
+        {
+          "uid": 8116213577,
+          "nickname": "xylitol",
+          "points": 25800,
+          "rank": 2
+        },
+        {
+          "uid": 618520625,
+          "nickname": "ヒル",
+          "points": 8600,
+          "rank": 3
+        },
+        {
+          "uid": 813200896,
+          "nickname": "partofthecreed",
+          "points": -17700,
+          "rank": 4
+        }
+      ]
+    }
+  ],
+  "finalLeaderboard": [
+    {
+      "rank": 1,
+      "userID": 8110716447,
+      "nickname": "Mookjong",
+      "rankScore": 12600,
+      "gamesPlayed": 79
+    },
+    {
+      "rank": 2,
+      "userID": 813200896,
+      "nickname": "partofthecreed",
+      "rankScore": 5962,
+      "gamesPlayed": 72
+    },
+    {
+      "rank": 3,
+      "userID": 8112954504,
+      "nickname": "spg",
+      "rankScore": 4990,
+      "gamesPlayed": 52
+    },
+    {
+      "rank": 4,
+      "userID": 8111465642,
+      "nickname": "chi",
+      "rankScore": 3033,
+      "gamesPlayed": 19
+    },
+    {
+      "rank": 5,
+      "userID": 618520625,
+      "nickname": "ヒル",
+      "rankScore": 1016,
+      "gamesPlayed": 84
+    },
+    {
+      "rank": 6,
+      "userID": 8118619109,
+      "nickname": "WhiteGirl",
+      "rankScore": 239,
+      "gamesPlayed": 11
+    },
+    {
+      "rank": 7,
+      "userID": 8118619703,
+      "nickname": "paru",
+      "rankScore": -309,
+      "gamesPlayed": 1
+    },
+    {
+      "rank": 8,
+      "userID": 4115101978,
+      "nickname": "krafty",
+      "rankScore": -535,
+      "gamesPlayed": 2
+    },
+    {
+      "rank": 9,
+      "userID": 8116213577,
+      "nickname": "xylitol",
+      "rankScore": -1453,
+      "gamesPlayed": 36
+    },
+    {
+      "rank": 10,
+      "userID": 6113057604,
+      "nickname": "eebo",
+      "rankScore": -1559,
+      "gamesPlayed": 19
+    },
+    {
+      "rank": 11,
+      "userID": 815746474,
+      "nickname": "Yak Tuah",
+      "rankScore": -1744,
+      "gamesPlayed": 16
+    },
+    {
+      "rank": 12,
+      "userID": 8115435540,
+      "nickname": "dongsmasher",
+      "rankScore": -4079,
+      "gamesPlayed": 22
+    },
+    {
+      "rank": 13,
+      "userID": 8114148282,
+      "nickname": "catnip",
+      "rankScore": -6318,
+      "gamesPlayed": 55
+    },
+    {
+      "rank": 14,
+      "userID": 816989559,
+      "nickname": "KimMahjongUn",
+      "rankScore": -11843,
+      "gamesPlayed": 76
+    }
+  ]
+}

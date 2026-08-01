@@ -209,6 +209,19 @@ export class RiichiCityClient {
     skip = 0,
     limit = 20
   ): Promise<RCGame[]> {
+    const { games } = await this.getCompletedGamesPage(classifyId, skip, limit);
+    return games;
+  }
+
+  // Same as getCompletedGames but also reports how many entries the server sent
+  // before abandoned (isMiddlePause) games were filtered out. Callers paging
+  // through full history must stop on rawCount === 0, not games.length === 0 —
+  // a page can filter down to empty while more history still follows.
+  async getCompletedGamesPage(
+    classifyId: string,
+    skip = 0,
+    limit = 20
+  ): Promise<{ games: RCGame[]; rawCount: number }> {
     const entries = await this.post<RawLogEntry[]>("/record/readPaiPuList", {
       classifyID: classifyId,
       skip,
@@ -221,7 +234,7 @@ export class RiichiCityClient {
       isSelf: true,
     });
 
-    return entries
+    const games = entries
       .filter((e) => !e.isMiddlePause)
       .map((e) => ({
         paiPuId: e.paiPuId,
@@ -229,6 +242,8 @@ export class RiichiCityClient {
         playerCount: e.playerCount,
         players: rankPlayers(e.players),
       }));
+
+    return { games, rawCount: entries.length };
   }
 
   // ── Internal HTTP ────────────────────────────────────────────────────────────

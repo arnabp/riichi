@@ -95,6 +95,29 @@ export class GameTracker {
     return results;
   }
 
+  // ── Season rollover ─────────────────────────────────────────────────────────
+
+  // Start a new season. seenIds is seeded with the outgoing season's game IDs
+  // rather than emptied: if the tournament has not actually been reset on Riichi
+  // City's side yet, an empty set would make the bot re-post the entire previous
+  // season into the freshly cleared channel. New games get new IDs either way.
+  async resetSeason(tournamentId: string, archivedGameIds: string[]): Promise<void> {
+    this.seenIds = new Set(archivedGameIds);
+    delete this.statusState[tournamentId];
+    await this.saveState();
+    await this.saveStatusState();
+    console.log(
+      `[Tracker] Season reset for ${tournamentId} — seeded ${archivedGameIds.length} archived game IDs`
+    );
+  }
+
+  // Refresh cached tournament info after a reset (classifyId can change).
+  async refreshTournament(tournamentId: string): Promise<RCTournamentInfo> {
+    const info = await this.client.enterTournament(tournamentId);
+    this.tournamentInfo.set(tournamentId, info);
+    return info;
+  }
+
   // ── Status message ID persistence ───────────────────────────────────────────
 
   getStatusMessageIds(tournamentId: string): TournamentStatusState {

@@ -9,6 +9,10 @@ services:
     environment:
       STATE_FILE: /app/data/seen_games.json
       STATUS_FILE: /app/data/status_state.json
+      # Season archives are the only surviving record once a tournament is
+      # reset, so they live on the persistent volume.
+      SEASON_FILE: /app/data/season_state.json
+      ARCHIVE_DIR: /app/data/archive
 
 volumes:
   bot-data:

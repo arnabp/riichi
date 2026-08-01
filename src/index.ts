@@ -1,46 +1,20 @@
 import { createHash } from "node:crypto";
+import { Events, MessageFlags } from "discord.js";
 import { RiichiCityClient, RCLeaderboardEntry, RCTournamentInfo } from "./riichicity.ts";
 import { GameTracker, TournamentConfig, withSessionRetry } from "./tracker.ts";
 import {
   createDiscordClient,
+  whenReady,
   postGameResult,
   sendOrUpdateLeaderboard,
   sendOrRecreateQueue,
 } from "./bot.ts";
-
-// ── Config ────────────────────────────────────────────────────────────────────
-
-function requireEnv(name: string): string {
-  const val = process.env[name];
-  if (!val) throw new Error(`Missing required env var: ${name}`);
-  return val;
-}
+import { loadTournaments, requireEnv, guildId } from "./config.ts";
+import { SeasonStore } from "./season.ts";
+import { listArchives } from "./archive.ts";
+import { registerCommands, handleInteraction, type AdminContext } from "./admin.ts";
 
 const POLL_INTERVAL_MS = Number(process.env.POLL_INTERVAL_MS ?? 30_000);
-
-// Each tournament is defined by a block of env vars:
-//   TOURNAMENT_1_ID, TOURNAMENT_1_CHANNEL, TOURNAMENT_1_LABEL
-//   TOURNAMENT_1_STATUS_CHANNEL  (optional — enables the status channel feature)
-//   ... and so on for TOURNAMENT_2_*, etc.
-function loadTournaments(): TournamentConfig[] {
-  const configs: TournamentConfig[] = [];
-  for (let i = 1; ; i++) {
-    const id = process.env[`TOURNAMENT_${i}_ID`];
-    if (!id) break;
-    configs.push({
-      tournamentId: id,
-      discordChannelId: requireEnv(`TOURNAMENT_${i}_CHANNEL`),
-      statusChannelId: process.env[`TOURNAMENT_${i}_STATUS_CHANNEL`],
-      label: process.env[`TOURNAMENT_${i}_LABEL`] ?? `Tournament ${i}`,
-    });
-  }
-  if (configs.length === 0) {
-    throw new Error(
-      "No tournaments configured. Set TOURNAMENT_1_ID, TOURNAMENT_1_CHANNEL, TOURNAMENT_1_LABEL in .env"
-    );
-  }
-  return configs;
-}
 
 // ── Status change detection ───────────────────────────────────────────────────
 
@@ -70,12 +44,67 @@ async function main() {
 
   const discordClient = createDiscordClient();
   await discordClient.login(requireEnv("DISCORD_TOKEN"));
-  console.log(`[Main] Discord logged in as ${discordClient.user?.tag}`);
+  await whenReady(discordClient);
+  console.log(`[Main] Discord ready as ${discordClient.user?.tag}`);
 
   await rcClient.login();
 
   const tracker = new GameTracker(rcClient, tournaments);
   await tracker.init();
+
+  const seasons = new SeasonStore();
+  await seasons.load();
+  for (const t of tournaments) {
+    const s = await seasons.ensure(t);
+    console.log(`[Main] "${s.label}" — season ${s.seasonNumber}`);
+  }
+
+  // Per-tournament runtime state for status change detection
+  const lastLeaderHash = new Map<string, string>();
+  const lastQueueKey = new Map<string, string>();
+
+  const pausePolling = { paused: false };
+  const adminCtx: AdminContext = {
+    rcClient,
+    tracker,
+    seasons,
+    tournaments,
+    pausePolling,
+    onSeasonReset: (tournamentId) => {
+      lastLeaderHash.delete(tournamentId);
+      lastQueueKey.delete(tournamentId);
+    },
+  };
+  // Posting results matters more than the admin commands — if registration
+  // fails (missing applications.commands scope, for instance) keep polling.
+  await registerCommands(discordClient, guildId()).catch((err) => {
+    console.error("[Main] Slash command registration failed:", err);
+  });
+
+  discordClient.on(Events.InteractionCreate, async (interaction) => {
+    if (interaction.isAutocomplete()) {
+      const files = (await listArchives()).map((p) => p.split("/").pop()!);
+      const typed = interaction.options.getFocused().toLowerCase();
+      await interaction
+        .respond(
+          files
+            .filter((f) => f.toLowerCase().includes(typed))
+            .slice(0, 25)
+            .map((f) => ({ name: f, value: f }))
+        )
+        .catch(() => {});
+      return;
+    }
+    if (!interaction.isChatInputCommand()) return;
+    // Season commands can run for minutes (purging is rate-limited), so they are
+    // handled off the poll loop and must never take the process down.
+    handleInteraction(interaction, adminCtx).catch(async (err) => {
+      console.error("[Main] Interaction handler error:", err);
+      await interaction
+        .followUp({ content: `❌ ${err}`, flags: MessageFlags.Ephemeral })
+        .catch(() => {});
+    });
+  });
 
   console.log(`[Main] Polling every ${POLL_INTERVAL_MS / 1000}s`);
 
@@ -86,14 +115,12 @@ async function main() {
     });
   }
 
-  // Per-tournament runtime state for status change detection
-  const lastLeaderHash = new Map<string, string>();
-  const lastQueueKey = new Map<string, string>();
-
   // Run one poll immediately, then loop sequentially (await each before scheduling next,
   // so a slow poll can't stack up concurrent runs)
   const loop = async () => {
-    await runPoll(rcClient, tracker, discordClient, lastLeaderHash, lastQueueKey);
+    if (!pausePolling.paused) {
+      await runPoll(rcClient, tracker, discordClient, seasons, lastLeaderHash, lastQueueKey);
+    }
     setTimeout(loop, POLL_INTERVAL_MS);
   };
   loop();
@@ -103,6 +130,7 @@ async function runPoll(
   rcClient: RiichiCityClient,
   tracker: GameTracker,
   discordClient: ReturnType<typeof createDiscordClient>,
+  seasons: SeasonStore,
   lastLeaderHash: Map<string, string>,
   lastQueueKey: Map<string, string>,
 ) {
@@ -111,7 +139,10 @@ async function runPoll(
       // ── New completed games → games channel ──────────────────────────────
       const newGames = await tracker.poll();
       newGames.sort((a, b) => a.game.endTime - b.game.endTime);
-      for (const { config, game } of newGames) {
+      for (const { config: raw, game } of newGames) {
+        // Labels come from the season store so a rollover renames posts without
+        // needing an env change and redeploy.
+        const config = seasons.resolve(raw);
         console.log(
           `[Main] New game in "${config.label}": ${game.paiPuId} — winner: ${game.players[0]?.nickname}`
         );
@@ -120,7 +151,8 @@ async function runPoll(
 
       // ── Status updates → status channel ──────────────────────────────────
       const statusUpdates = await tracker.pollStatus();
-      for (const { config, status } of statusUpdates) {
+      for (const { config: rawConfig, status } of statusUpdates) {
+        const config = seasons.resolve(rawConfig);
         const { tournamentId } = config;
         const msgIds = tracker.getStatusMessageIds(tournamentId);
 

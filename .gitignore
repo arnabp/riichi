@@ -199,3 +199,14 @@ seen_games.json
 seen_games.json.tmp
 status_state.json
 status_state.json.tmp
+data/seen_games.json
+data/status_state.json
+data/season_state.json
+*.tmp
+
+# Channel backups taken before a purge contain members' message content —
+# keep them on the volume, not in the repo.
+data/archive/channels/
+
+# Season archives (data/archive/*.json) are deliberately NOT ignored: once a
+# tournament is reset they are the only surviving record of that season.

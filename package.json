@@ -6,6 +6,8 @@
   "scripts": {
     "start": "bun run src/index.ts",
     "dev": "bun --watch run src/index.ts",
+    "archive": "bun run src/archive-season.ts",
+    "stats": "bun run src/season-stats.ts",
     "test": "bun test"
   },
   "dependencies": {
