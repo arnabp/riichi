@@ -48,7 +48,7 @@ export const SPRING_2026_SETTINGS: ScoringSettings = {
 // players' scores and leaves the table zero-sum. See scoring.test.ts.
 export const SEASON_2_SETTINGS: ScoringSettings = {
   returnPoints: 30_000,
-  oka: 20,
+  oka: 0,
   uma: [15, 5, -5, -15],
 };
 
