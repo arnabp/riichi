@@ -13,7 +13,7 @@ import { GameTracker, TournamentConfig } from "./tracker.ts";
 import { SeasonStore } from "./season.ts";
 import { buildArchive, saveArchive, loadArchive, listArchives, SeasonArchive } from "./archive.ts";
 import { summarize } from "./stats.ts";
-import { postSeasonSummary } from "./bot.ts";
+import { postSeasonSummary, postGameResult } from "./bot.ts";
 import { purgeChannelSafely, PurgeRefused } from "./purge.ts";
 import { loadAdminIds } from "./config.ts";
 
@@ -31,6 +31,14 @@ export const SEASON_COMMAND = new SlashCommandBuilder()
       .setDescription("Post the season summary to this channel")
       .addStringOption((o) =>
         o.setName("season").setDescription("Archived season file (defaults to a live snapshot)").setAutocomplete(true)))
+  .addSubcommand((s) =>
+    s.setName("repost")
+      .setDescription("Re-post recent game results (after a scoring or formatting fix)")
+      .addIntegerOption((o) =>
+        o.setName("count")
+          .setDescription("How many of the most recent games to re-post (default 1)")
+          .setMinValue(1)
+          .setMaxValue(20)))
   .addSubcommand((s) =>
     s.setName("rollover")
       .setDescription("Archive, clear the channels, and start the next season")
@@ -100,6 +108,7 @@ export async function handleInteraction(
       case "status":   return await handleStatus(interaction, ctx);
       case "archive":  return await handleArchive(interaction, ctx);
       case "stats":    return await handleStats(interaction, ctx);
+      case "repost":   return await handleRepost(interaction, ctx);
       case "rollover": return await handleRollover(interaction, ctx);
     }
   } catch (err) {
@@ -211,6 +220,39 @@ async function handleStats(interaction: ChatInputCommandInteraction, ctx: AdminC
 
   await postSeasonSummary(interaction.client, interaction.channelId, summarize(archive));
   await interaction.editReply(`✅ Posted the summary for **${archive.seasonLabel}**.`);
+}
+
+// ── repost ────────────────────────────────────────────────────────────────────
+
+async function handleRepost(interaction: ChatInputCommandInteraction, ctx: AdminContext) {
+  await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+  const config = resolveTournament(interaction, ctx);
+  const season = ctx.seasons.current(config);
+  const count = interaction.options.getInteger("count") ?? 1;
+
+  const info = await ctx.rcClient.enterTournament(config.tournamentId);
+  const { games } = await ctx.rcClient.getCompletedGamesPage(info.classifyId, 0, count);
+  if (games.length === 0) {
+    await interaction.editReply("No completed games to re-post — the tournament has none yet.");
+    return;
+  }
+
+  // Same order the poll loop uses, so a re-post reads chronologically.
+  const ordered = [...games].sort((a, b) => a.endTime - b.endTime);
+  const labelled = { ...config, label: season.label };
+  for (const game of ordered) {
+    await postGameResult(interaction.client, labelled, game);
+  }
+
+  // These may not be in the seen set — if the state file was cleared, or a game
+  // finished between the fetch and now. Marking them stops the next poll from
+  // posting a duplicate.
+  await ctx.tracker.markSeen(ordered.map((g) => g.paiPuId));
+
+  await interaction.editReply(
+    `✅ Re-posted ${ordered.length} game(s) to <#${config.discordChannelId}>.\n` +
+    `Delete the outdated copies yourself — this adds new messages rather than replacing them.`
+  );
 }
 
 // ── rollover ──────────────────────────────────────────────────────────────────

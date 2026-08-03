@@ -41,7 +41,9 @@ export class GameTracker {
 
   constructor(
     private client: RiichiCityClient,
-    private tournaments: TournamentConfig[]
+    private tournaments: TournamentConfig[],
+    private stateFile: string = STATE_FILE,
+    private statusFile: string = STATUS_FILE,
   ) {}
 
   async init(): Promise<void> {
@@ -111,6 +113,14 @@ export class GameTracker {
     );
   }
 
+  // Record games as already posted without posting them. Used by an admin
+  // re-post so the poll loop does not then post the same games again.
+  async markSeen(ids: string[]): Promise<void> {
+    for (const id of ids) this.seenIds.add(id);
+    this.trimSeenIds();
+    await this.saveState();
+  }
+
   // Refresh cached tournament info after a reset (classifyId can change).
   async refreshTournament(tournamentId: string): Promise<RCTournamentInfo> {
     const info = await this.client.enterTournament(tournamentId);
@@ -147,35 +157,35 @@ export class GameTracker {
 
   private async loadState(): Promise<void> {
     try {
-      const raw = await Bun.file(STATE_FILE).text();
+      const raw = await Bun.file(this.stateFile).text();
       const ids: string[] = JSON.parse(raw);
       this.seenIds = new Set(ids);
-      console.log(`[Tracker] Loaded ${this.seenIds.size} seen game IDs from ${STATE_FILE}`);
+      console.log(`[Tracker] Loaded ${this.seenIds.size} seen game IDs from ${this.stateFile}`);
     } catch {
       console.log("[Tracker] No state file found, starting fresh");
     }
   }
 
   private async saveState(): Promise<void> {
-    const tmp = STATE_FILE + ".tmp";
+    const tmp = this.stateFile + ".tmp";
     await Bun.write(tmp, JSON.stringify([...this.seenIds]));
-    await rename(tmp, STATE_FILE);
+    await rename(tmp, this.stateFile);
   }
 
   private async loadStatusState(): Promise<void> {
     try {
-      const raw = await Bun.file(STATUS_FILE).text();
+      const raw = await Bun.file(this.statusFile).text();
       this.statusState = JSON.parse(raw);
-      console.log(`[Tracker] Loaded status state from ${STATUS_FILE}`);
+      console.log(`[Tracker] Loaded status state from ${this.statusFile}`);
     } catch {
       this.statusState = {};
     }
   }
 
   private async saveStatusState(): Promise<void> {
-    const tmp = STATUS_FILE + ".tmp";
+    const tmp = this.statusFile + ".tmp";
     await Bun.write(tmp, JSON.stringify(this.statusState, null, 2));
-    await rename(tmp, STATUS_FILE);
+    await rename(tmp, this.statusFile);
   }
 }
 

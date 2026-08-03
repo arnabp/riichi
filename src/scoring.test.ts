@@ -4,6 +4,7 @@ import {
   gamePoints,
   formatGamePoints,
   SPRING_2026_SETTINGS as S1,
+  SEASON_2_SETTINGS as S2,
   SETTINGS,
 } from "./scoring.ts";
 import { loadArchive } from "./archive.ts";
@@ -30,9 +31,43 @@ describe("gamePoints", () => {
     expect(gamePoints(40_000, 1, flat)).toBe(15);
   });
 
-  it("defaults to the Spring League 2026 settings when nothing is configured", () => {
+  it("defaults to the current season's settings when nothing is configured", () => {
     // Guards against an accidental change to the shipped defaults.
-    expect(SETTINGS).toEqual(S1);
+    expect(SETTINGS).toEqual(S2);
+  });
+});
+
+// Season 2 halved the uma to 15/5/-5/-15. The oka was not removed — it is a
+// consequence of the 30,000 return against a 25,000 start, not a separate
+// setting. These are the real figures from the first Season 2 game, where the
+// tournament had exactly one game scored so each player's cumulative standing
+// equals that single game's points.
+describe("Season 2 settings, verified against the first Season 2 game", () => {
+  const table: { score: number; rank: number; points: number }[] = [
+    { score: 44_700, rank: 1, points: 49.7 },
+    { score: 27_600, rank: 2, points: 2.6 },
+    { score: 14_000, rank: 3, points: -21.0 },
+    { score: 13_700, rank: 4, points: -31.3 },
+  ];
+
+  it("reproduces every player's score", () => {
+    for (const { score, rank, points } of table) {
+      expect(gamePoints(score, rank, S2)).toBeCloseTo(points, 1);
+    }
+  });
+
+  it("is zero-sum", () => {
+    const sum = table.reduce((s, t) => s + gamePoints(t.score, t.rank, S2), 0);
+    expect(sum).toBeCloseTo(0, 6);
+  });
+
+  it("would understate first place by exactly the oka if oka were dropped", () => {
+    // Documents why "no oka" could not be taken literally: without it the
+    // winner is 20 short and the table no longer balances.
+    const noOka = { ...S2, oka: 0 };
+    expect(gamePoints(44_700, 1, noOka)).toBeCloseTo(29.7, 1);
+    const sum = table.reduce((s, t) => s + gamePoints(t.score, t.rank, noOka), 0);
+    expect(sum).toBeCloseTo(-20, 6);
   });
 });
 

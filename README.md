@@ -39,14 +39,20 @@ The game log returns only table scores, never the points a game was worth, so
 
 ```
 points = (tableScore - 30000)/1000 + uma[rank] + 20 if 1st
-uma = 30 / 10 / -10 / -30
+uma = 15 / 5 / -5 / -15        (Season 2; Season 1 used 30 / 10 / -10 / -30)
 ```
 
-These settings were derived from the Spring League 2026 archive and are pinned
-by a test that replays all 137 games and compares against the tournament's own
-final standings — so if the league's settings change, `scoring.test.ts` fails
-rather than the embeds going quietly wrong. Override via `LEAGUE_RETURN_POINTS`,
-`LEAGUE_UMA`, and `LEAGUE_OKA` (see `.env.example`).
+The **oka is not a separate setting** — the +20 to first place falls out of the
+30,000 return against a 25,000 start: `(30000 - 25000) * 4 / 1000 = 20`. It stays
+in effect whatever the uma is, and dropping it leaves each table summing to -20
+instead of zero.
+
+Both seasons' settings are pinned by tests against real data: Season 1 replays
+all 137 archived games against the tournament's own final standings, and
+Season 2 is checked against the first game of the season. If the league's
+settings change, `scoring.test.ts` fails rather than the embeds going quietly
+wrong. Override via `LEAGUE_RETURN_POINTS`, `LEAGUE_UMA`, and `LEAGUE_OKA`
+(see `.env.example`).
 
 ## Seasons
 
@@ -67,11 +73,22 @@ reliably reconstructed from raw scores, so it is preserved rather than recompute
 | `/season status` | current season, player count, archives on disk, past seasons |
 | `/season archive` | snapshot the season to disk — read-only, safe to repeat |
 | `/season stats [season]` | post the season summary to the current channel |
+| `/season repost [count]` | re-post the most recent game results (default 1) |
 | `/season rollover <new_label> <confirm>` | archive → back up channels → purge → post results → start next season |
 
 `rollover` requires `confirm` to exactly match the **current** season label, and
 aborts if the tournament returns zero games. Pass `purge:false` to roll the
 season over without clearing the channels.
+
+### Re-posting game results
+
+`/season repost` re-fetches the most recent games and posts them again — for
+when a scoring or formatting fix landed after the games were already announced.
+It **adds** messages rather than replacing them, so delete the outdated copies
+yourself; the bot has no way to know which message corresponded to which game.
+
+It also marks those games as seen, so clearing `seen_games.json` by hand is not
+necessary and the poll loop will not follow up with duplicates.
 
 ### Rollover order
 

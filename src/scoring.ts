@@ -31,18 +31,32 @@ export interface ScoringSettings {
   uma: number[];
 }
 
-// The settings that produced the Spring League 2026 standings. Pinned so the
-// regression test against that archive keeps passing even if the live league
-// settings are changed for a later season.
+// Season 1 (Spring League 2026) settings. Pinned so the regression test against
+// that archive keeps passing now that the live settings have changed.
 export const SPRING_2026_SETTINGS: ScoringSettings = {
   returnPoints: 30_000,
   oka: 20,
   uma: [30, 10, -10, -30],
 };
 
+// Season 2 settings — the current defaults. Uma was halved to 15/5/-5/-15.
+//
+// The oka is unchanged and still applies: it is not a separate toggle but a
+// consequence of the 30,000 return against a 25,000 start,
+// (30000 - 25000) * 4 / 1000 = 20 to first place. Verified against the first
+// Season 2 game, where it is the only configuration that reproduces all four
+// players' scores and leaves the table zero-sum. See scoring.test.ts.
+export const SEASON_2_SETTINGS: ScoringSettings = {
+  returnPoints: 30_000,
+  oka: 20,
+  uma: [15, 5, -5, -15],
+};
+
+const DEFAULTS = SEASON_2_SETTINGS;
+
 function umaEnv(): number[] {
   const raw = process.env.LEAGUE_UMA;
-  if (!raw) return SPRING_2026_SETTINGS.uma;
+  if (!raw) return DEFAULTS.uma;
   const parts = raw.split(",").map((s) => Number(s.trim()));
   if (parts.length !== 4 || parts.some((n) => !Number.isFinite(n))) {
     throw new Error(`LEAGUE_UMA must be four comma-separated numbers, got "${raw}"`);
@@ -51,8 +65,8 @@ function umaEnv(): number[] {
 }
 
 export const SETTINGS: ScoringSettings = {
-  returnPoints: numEnv("LEAGUE_RETURN_POINTS", SPRING_2026_SETTINGS.returnPoints),
-  oka: numEnv("LEAGUE_OKA", SPRING_2026_SETTINGS.oka),
+  returnPoints: numEnv("LEAGUE_RETURN_POINTS", DEFAULTS.returnPoints),
+  oka: numEnv("LEAGUE_OKA", DEFAULTS.oka),
   uma: umaEnv(),
 };
 
