@@ -50,7 +50,7 @@ export const SEASON_COMMAND = new SlashCommandBuilder()
           .setDescription("Archived season file (defaults to the live season)")
           .setAutocomplete(true))
       .addBooleanOption((o) =>
-        o.setName("public").setDescription("Post it to the channel instead of only to you (default false)")))
+        o.setName("private").setDescription("Show it only to you instead of posting in the channel (default false)")))
   .addSubcommand((s) =>
     s.setName("repost")
       .setDescription("Re-post recent game results (after a scoring or formatting fix)")
@@ -246,8 +246,10 @@ async function handleStats(interaction: ChatInputCommandInteraction, ctx: AdminC
 // ── whatif ────────────────────────────────────────────────────────────────────
 
 async function handleWhatIf(interaction: ChatInputCommandInteraction, ctx: AdminContext) {
-  const isPublic = interaction.options.getBoolean("public") ?? false;
-  await interaction.deferReply(isPublic ? {} : { flags: MessageFlags.Ephemeral });
+  // Posts into the channel it was run in — a what-if is for the league to argue
+  // over. `private:true` keeps it to the caller.
+  const isPrivate = interaction.options.getBoolean("private") ?? false;
+  await interaction.deferReply(isPrivate ? { flags: MessageFlags.Ephemeral } : {});
   const config = resolveTournament(interaction, ctx);
 
   // Anything not given stays at the current league setting, so `uma:30,10` on

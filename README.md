@@ -76,7 +76,7 @@ reliably reconstructed from raw scores, so it is preserved rather than recompute
 | `/season status` | current season, player count, archives on disk, past seasons |
 | `/season archive` | snapshot the season to disk — read-only, safe to repeat |
 | `/season stats [season]` | post the season summary to the current channel |
-| `/season whatif <uma> [oka] [return_points] [season] [public]` | re-score the season under different settings and show the standings it would have given |
+| `/season whatif <uma> [oka] [return_points] [season] [private]` | re-score the season under different settings and show the standings it would have given |
 | `/season repost [count]` | re-post the most recent game results (default 1) |
 | `/season rollover <new_label> <confirm>` | archive → back up channels → purge → post results → start next season |
 
@@ -95,14 +95,14 @@ question.
 /season whatif uma:30,10,-10,-30
 /season whatif uma:30,10 oka:20                      # two-value shorthand
 /season whatif uma:15,5,-5,-15 return_points:25000
-/season whatif uma:30,10 season:s01-spring-league-2026.json public:true
+/season whatif uma:30,10 season:s01-spring-league-2026.json private:true
 ```
 
 `uma` takes four values, or the two-value shorthand the rules are usually quoted
 as (`30,10` → `30/10/-10/-30`). `oka` and `return_points` default to the current
 league settings, so passing `uma` alone answers "what if only the uma changed?".
-It reads the live season unless a `season` archive is named, and replies only to
-you unless `public:true`.
+It reads the live season unless a `season` archive is named, and posts into the
+channel you ran it in — pass `private:true` to see it yourself first.
 
 The output ranks everyone under the proposed settings, with each player's
 current place and their points change, plus the five biggest movers. If the
