@@ -37,36 +37,60 @@ describe("gamePoints", () => {
   });
 });
 
-// Season 2 halved the uma to 15/5/-5/-15. The oka was not removed — it is a
-// consequence of the 30,000 return against a 25,000 start, not a separate
-// setting. These are the real figures from the first Season 2 game, where the
-// tournament had exactly one game scored so each player's cumulative standing
-// equals that single game's points.
-describe("Season 2 settings, verified against the first Season 2 game", () => {
-  const table: { score: number; rank: number; points: number }[] = [
-    { score: 44_700, rank: 1, points: 49.7 },
-    { score: 27_600, rank: 2, points: 2.6 },
-    { score: 14_000, rank: 3, points: -21.0 },
-    { score: 13_700, rank: 4, points: -31.3 },
-  ];
+// The real figures from the first Season 2 game, when the tournament had
+// exactly one game scored so each player's cumulative standing equalled that
+// single game's points. It was played while a 20-point oka was still going to
+// first place — that is what these numbers show, and it pins the uma at
+// 15/5/-5/-15, which is the part that carries over.
+//
+// The league has since dropped the oka (see SEASON_2_SETTINGS), so this block
+// records what the tournament did at the time; the block below it covers the
+// settings in force now.
+const FIRST_SEASON_2_GAME: { score: number; rank: number; points: number }[] = [
+  { score: 44_700, rank: 1, points: 49.7 },
+  { score: 27_600, rank: 2, points: 2.6 },
+  { score: 14_000, rank: 3, points: -21.0 },
+  { score: 13_700, rank: 4, points: -31.3 },
+];
 
-  it("reproduces every player's score", () => {
-    for (const { score, rank, points } of table) {
+describe("first Season 2 game, as the tournament scored it", () => {
+  const withOka = { ...S2, oka: 20 };
+
+  it("reproduces every player's score under the oka it was played with", () => {
+    for (const { score, rank, points } of FIRST_SEASON_2_GAME) {
+      expect(gamePoints(score, rank, withOka)).toBeCloseTo(points, 1);
+    }
+  });
+
+  it("is zero-sum with that oka", () => {
+    const sum = FIRST_SEASON_2_GAME.reduce((s, t) => s + gamePoints(t.score, t.rank, withOka), 0);
+    expect(sum).toBeCloseTo(0, 6);
+  });
+});
+
+// Season 2 halved the uma to 15/5/-5/-15 and pays first place no oka. The
+// 30,000 return still collects 5,000 from each player, so with nothing handing
+// that back to the winner a table no longer balances — this is a deliberate
+// league choice, and these tests pin its consequences so neither shows up as a
+// surprise later.
+describe("Season 2 settings, as they stand now", () => {
+  it("gives first place the uma and nothing else", () => {
+    // Same winning score as the game above: 20 lower without the oka.
+    expect(gamePoints(44_700, 1, S2)).toBeCloseTo(29.7, 1);
+  });
+
+  it("scores the other placements identically to before — only 1st is affected", () => {
+    for (const { score, rank, points } of FIRST_SEASON_2_GAME.slice(1)) {
       expect(gamePoints(score, rank, S2)).toBeCloseTo(points, 1);
     }
   });
 
-  it("is zero-sum", () => {
-    const sum = table.reduce((s, t) => s + gamePoints(t.score, t.rank, S2), 0);
-    expect(sum).toBeCloseTo(0, 6);
-  });
-
-  it("would understate first place by exactly the oka if oka were dropped", () => {
-    // Documents why "no oka" could not be taken literally: without it the
-    // winner is 20 short and the table no longer balances.
-    const noOka = { ...S2, oka: 0 };
-    expect(gamePoints(44_700, 1, noOka)).toBeCloseTo(29.7, 1);
-    const sum = table.reduce((s, t) => s + gamePoints(t.score, t.rank, noOka), 0);
+  // A table 20 short means every game played moves a player's total by -5 on
+  // average whatever they do, so the standings partly rank games played rather
+  // than performance. `/season whatif` warns about this for any ruleset that
+  // does not balance (see whatif.ts).
+  it("leaves each table 20 short of zero-sum, the oka the return collects", () => {
+    const sum = FIRST_SEASON_2_GAME.reduce((s, t) => s + gamePoints(t.score, t.rank, S2), 0);
     expect(sum).toBeCloseTo(-20, 6);
   });
 });

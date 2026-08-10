@@ -3,13 +3,20 @@
 // Run with: bun run stats                  (most recent archive)
 //           bun run stats -- s01-spring-league-2026.json
 //           bun run stats -- --player Mookjong
+//           bun run stats -- --uma 30,10,-10,-30 --oka 20   (re-score, see whatif.ts)
 
 import { listArchives, loadArchive } from "./archive.ts";
 import { summarize, formatSummaryText, pct, signed, formatRankScore } from "./stats.ts";
+import { SETTINGS } from "./scoring.ts";
+import { recalculate, parseUma, formatWhatIfText } from "./whatif.ts";
 
 const args = process.argv.slice(2);
-const playerFlag = args.indexOf("--player");
-const playerName = playerFlag >= 0 ? args[playerFlag + 1] : undefined;
+const flag = (name: string): string | undefined => {
+  const i = args.indexOf(name);
+  return i >= 0 ? args[i + 1] : undefined;
+};
+const playerName = flag("--player");
+const umaArg = flag("--uma");
 const fileArg = args.find((a) => a.endsWith(".json"));
 
 const archives = await listArchives();
@@ -28,7 +35,36 @@ if (!path) {
   process.exit(1);
 }
 
-const summary = summarize(await loadArchive(path));
+const archive = await loadArchive(path);
+
+if (umaArg) {
+  const num = (name: string, fallback: number) => {
+    const raw = flag(name);
+    if (raw === undefined) return fallback;
+    const n = Number(raw);
+    if (!Number.isFinite(n)) {
+      console.error(`${name} must be a number, got "${raw}"`);
+      process.exit(1);
+    }
+    return n;
+  };
+  let settings;
+  try {
+    settings = {
+      returnPoints: num("--return", SETTINGS.returnPoints),
+      oka: num("--oka", SETTINGS.oka),
+      uma: parseUma(umaArg),
+    };
+  } catch (err) {
+    // A malformed --uma is a typo, not a bug; a stack trace would only bury it.
+    console.error(err instanceof Error ? err.message : String(err));
+    process.exit(1);
+  }
+  console.log(formatWhatIfText(recalculate(archive.games, settings), archive.seasonLabel));
+  process.exit(0);
+}
+
+const summary = summarize(archive);
 
 if (!playerName) {
   console.log(formatSummaryText(summary));

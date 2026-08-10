@@ -39,13 +39,15 @@ export const SPRING_2026_SETTINGS: ScoringSettings = {
   uma: [30, 10, -10, -30],
 };
 
-// Season 2 settings — the current defaults. Uma was halved to 15/5/-5/-15.
+// Season 2 settings — the current defaults. Uma was halved to 15/5/-5/-15 and
+// the oka dropped to 0.
 //
-// The oka is unchanged and still applies: it is not a separate toggle but a
-// consequence of the 30,000 return against a 25,000 start,
-// (30000 - 25000) * 4 / 1000 = 20 to first place. Verified against the first
-// Season 2 game, where it is the only configuration that reproduces all four
-// players' scores and leaves the table zero-sum. See scoring.test.ts.
+// The uma is verified against the first Season 2 game. That game was played
+// while first place was still being paid the 20-point oka the 30,000 return
+// collects ((30000 - 25000) * 4 / 1000); dropping it is a deliberate league
+// choice made after, so a table now totals -20 rather than balancing, and every
+// game played costs each player 5 on average whatever they do. Both facts are
+// pinned in scoring.test.ts.
 export const SEASON_2_SETTINGS: ScoringSettings = {
   returnPoints: 30_000,
   oka: 0,

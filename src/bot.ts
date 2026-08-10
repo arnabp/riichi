@@ -16,6 +16,12 @@ import {
   formatRankScore,
 } from "./stats.ts";
 import { gamePoints, formatGamePoints } from "./scoring.ts";
+import {
+  WhatIfResult,
+  whatIfTable,
+  describeSettings,
+  balanceWarning,
+} from "./whatif.ts";
 
 const RANK_EMOJIS = ["🥇", "🥈", "🥉"];
 
@@ -224,6 +230,46 @@ function chunkTable(text: string): string[] {
   }
   if (current) chunks.push(current);
   return chunks;
+}
+
+// ── What-if standings ─────────────────────────────────────────────────────────
+
+export function buildWhatIfEmbeds(result: WhatIfResult, label: string): EmbedBuilder[] {
+  const header = new EmbedBuilder()
+    .setColor(Colors.Purple)
+    .setTitle(`🔮 ${label} — What if?`)
+    .setDescription(
+      `**Proposed:** ${describeSettings(result.settings)}\n` +
+      `**Current:** ${describeSettings(result.baseline)}\n` +
+      `**${result.totalGames}** games replayed`
+    );
+
+  const movers = result.rows
+    .filter((r) => r.rankDelta !== 0)
+    .sort((a, b) => Math.abs(b.rankDelta) - Math.abs(a.rankDelta))
+    .slice(0, 5)
+    .map((r) =>
+      `${r.rankDelta > 0 ? "📈" : "📉"} **${escapeMarkdown(r.nickname)}** — ` +
+      `${r.baseRank} → ${r.rank} (${formatGamePoints(r.pointsDelta)})`
+    );
+  header.addFields({
+    name: "Movers",
+    value: movers.length ? movers.join("\n") : "*Nobody changes place.*",
+  });
+
+  const warning = balanceWarning(result);
+  if (warning) header.addFields({ name: "Heads up", value: warning });
+
+  const embeds = [header];
+  for (const chunk of chunkTable(whatIfTable(result))) {
+    embeds.push(
+      new EmbedBuilder().setColor(Colors.Purple).setDescription("```\n" + chunk + "\n```")
+    );
+  }
+  embeds[embeds.length - 1]
+    .setFooter({ text: "Was = place under the current settings · ΔPts = points change · hypothetical only" })
+    .setTimestamp();
+  return embeds;
 }
 
 export async function postSeasonSummary(

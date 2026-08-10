@@ -13,7 +13,9 @@ import { GameTracker, TournamentConfig } from "./tracker.ts";
 import { SeasonStore } from "./season.ts";
 import { buildArchive, saveArchive, loadArchive, listArchives, SeasonArchive } from "./archive.ts";
 import { summarize } from "./stats.ts";
-import { postSeasonSummary, postGameResult } from "./bot.ts";
+import { postSeasonSummary, postGameResult, buildWhatIfEmbeds } from "./bot.ts";
+import { ScoringSettings, SETTINGS } from "./scoring.ts";
+import { recalculate, parseUma, sameSettings } from "./whatif.ts";
 import { purgeChannelSafely, PurgeRefused } from "./purge.ts";
 import { loadAdminIds } from "./config.ts";
 
@@ -31,6 +33,24 @@ export const SEASON_COMMAND = new SlashCommandBuilder()
       .setDescription("Post the season summary to this channel")
       .addStringOption((o) =>
         o.setName("season").setDescription("Archived season file (defaults to a live snapshot)").setAutocomplete(true)))
+  .addSubcommand((s) =>
+    s.setName("whatif")
+      .setDescription("Re-score the season under different uma/oka and show the standings it would give")
+      .addStringOption((o) =>
+        o.setName("uma")
+          .setDescription("Placement bonuses, e.g. '30,10,-10,-30' or the shorthand '30,10'")
+          .setRequired(true))
+      .addNumberOption((o) =>
+        o.setName("oka").setDescription("Bonus to 1st place (default: the current season's)"))
+      .addNumberOption((o) =>
+        o.setName("return_points")
+          .setDescription("Score each player returns to (default: the current season's)"))
+      .addStringOption((o) =>
+        o.setName("season")
+          .setDescription("Archived season file (defaults to the live season)")
+          .setAutocomplete(true))
+      .addBooleanOption((o) =>
+        o.setName("public").setDescription("Post it to the channel instead of only to you (default false)")))
   .addSubcommand((s) =>
     s.setName("repost")
       .setDescription("Re-post recent game results (after a scoring or formatting fix)")
@@ -108,6 +128,7 @@ export async function handleInteraction(
       case "status":   return await handleStatus(interaction, ctx);
       case "archive":  return await handleArchive(interaction, ctx);
       case "stats":    return await handleStats(interaction, ctx);
+      case "whatif":   return await handleWhatIf(interaction, ctx);
       case "repost":   return await handleRepost(interaction, ctx);
       case "rollover": return await handleRollover(interaction, ctx);
     }
@@ -220,6 +241,54 @@ async function handleStats(interaction: ChatInputCommandInteraction, ctx: AdminC
 
   await postSeasonSummary(interaction.client, interaction.channelId, summarize(archive));
   await interaction.editReply(`✅ Posted the summary for **${archive.seasonLabel}**.`);
+}
+
+// ── whatif ────────────────────────────────────────────────────────────────────
+
+async function handleWhatIf(interaction: ChatInputCommandInteraction, ctx: AdminContext) {
+  const isPublic = interaction.options.getBoolean("public") ?? false;
+  await interaction.deferReply(isPublic ? {} : { flags: MessageFlags.Ephemeral });
+  const config = resolveTournament(interaction, ctx);
+
+  // Anything not given stays at the current league setting, so `uma:30,10` on
+  // its own answers "what if only the uma changed?".
+  const settings: ScoringSettings = {
+    returnPoints: interaction.options.getNumber("return_points") ?? SETTINGS.returnPoints,
+    oka: interaction.options.getNumber("oka") ?? SETTINGS.oka,
+    uma: parseUma(interaction.options.getString("uma", true)),
+  };
+
+  const chosen = interaction.options.getString("season");
+  let games: SeasonArchive["games"];
+  let label: string;
+  if (chosen) {
+    const match = (await listArchives()).find((p) => p.endsWith(chosen));
+    if (!match) throw new Error(`No archive named \`${chosen}\``);
+    const archive = await loadArchive(match);
+    games = archive.games;
+    label = archive.seasonLabel;
+  } else {
+    // Deliberately not snapshot() — a what-if is a read-only question and has no
+    // business overwriting the season's archive on disk.
+    const season = await ctx.seasons.ensure(config);
+    const archive = await buildArchive(ctx.rcClient, { ...config, label: season.label }, season.seasonNumber);
+    games = archive.games;
+    label = archive.seasonLabel;
+  }
+
+  if (games.length === 0) {
+    await interaction.editReply("No games recorded for this season yet — nothing to re-score.");
+    return;
+  }
+
+  const result = recalculate(games, settings);
+  // Discord allows 10 embeds per message; a season's standings needs 2–3.
+  await interaction.editReply({
+    content: sameSettings(settings, result.baseline)
+      ? "*Those are the settings already in use, so this is just the current standings.*"
+      : undefined,
+    embeds: buildWhatIfEmbeds(result, label).slice(0, 10),
+  });
 }
 
 // ── repost ────────────────────────────────────────────────────────────────────

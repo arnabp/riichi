@@ -177,7 +177,8 @@ export function formatSummaryText(s: SeasonSummary): string {
   return lines.join("\n");
 }
 
-function table(rows: string[][]): string {
+// Column-aligned text table, shared with the what-if standings (whatif.ts).
+export function table(rows: string[][]): string {
   const widths = rows[0].map((_, c) => Math.max(...rows.map((r) => visualWidth(r[c] ?? ""))));
   return rows
     .map((r) => r.map((cell, c) => pad(cell, widths[c])).join("  ").trimEnd())

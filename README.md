@@ -38,18 +38,21 @@ The game log returns only table scores, never the points a game was worth, so
 `src/scoring.ts` recomputes them:
 
 ```
-points = (tableScore - 30000)/1000 + uma[rank] + 20 if 1st
-uma = 15 / 5 / -5 / -15        (Season 2; Season 1 used 30 / 10 / -10 / -30)
+points = (tableScore - 30000)/1000 + uma[rank] + oka if 1st
+uma = 15 / 5 / -5 / -15, oka = 0     (Season 2)
+uma = 30 / 10 / -10 / -30, oka = 20  (Season 1)
 ```
 
-The **oka is not a separate setting** — the +20 to first place falls out of the
-30,000 return against a 25,000 start: `(30000 - 25000) * 4 / 1000 = 20`. It stays
-in effect whatever the uma is, and dropping it leaves each table summing to -20
-instead of zero.
+The **oka is the 20 the 30,000 return collects** — `(30000 - 25000) * 4 / 1000` —
+handed back to first place. Season 1 paid it; Season 2 does not, so a table now
+sums to **-20 rather than zero**. That is deliberate, but it has a consequence
+worth knowing: every game played moves a player's total by -5 on average
+whatever they do, so the standings partly rank games played. `/season whatif`
+warns whenever a ruleset does not balance.
 
 Both seasons' settings are pinned by tests against real data: Season 1 replays
 all 137 archived games against the tournament's own final standings, and
-Season 2 is checked against the first game of the season. If the league's
+Season 2's uma is checked against the first game of the season. If the league's
 settings change, `scoring.test.ts` fails rather than the embeds going quietly
 wrong. Override via `LEAGUE_RETURN_POINTS`, `LEAGUE_UMA`, and `LEAGUE_OKA`
 (see `.env.example`).
@@ -73,12 +76,44 @@ reliably reconstructed from raw scores, so it is preserved rather than recompute
 | `/season status` | current season, player count, archives on disk, past seasons |
 | `/season archive` | snapshot the season to disk — read-only, safe to repeat |
 | `/season stats [season]` | post the season summary to the current channel |
+| `/season whatif <uma> [oka] [return_points] [season] [public]` | re-score the season under different settings and show the standings it would have given |
 | `/season repost [count]` | re-post the most recent game results (default 1) |
 | `/season rollover <new_label> <confirm>` | archive → back up channels → purge → post results → start next season |
 
 `rollover` requires `confirm` to exactly match the **current** season label, and
 aborts if the tournament returns zero games. Pass `purge:false` to roll the
 season over without clearing the channels.
+
+### What-if scoring
+
+`/season whatif` replays every game recorded so far through an alternative
+uma/oka and shows the standings they would have produced, next to the current
+ones. Nothing is written and no live scoring changes — it only answers the
+question.
+
+```
+/season whatif uma:30,10,-10,-30
+/season whatif uma:30,10 oka:20                      # two-value shorthand
+/season whatif uma:15,5,-5,-15 return_points:25000
+/season whatif uma:30,10 season:s01-spring-league-2026.json public:true
+```
+
+`uma` takes four values, or the two-value shorthand the rules are usually quoted
+as (`30,10` → `30/10/-10/-30`). `oka` and `return_points` default to the current
+league settings, so passing `uma` alone answers "what if only the uma changed?".
+It reads the live season unless a `season` archive is named, and replies only to
+you unless `public:true`.
+
+The output ranks everyone under the proposed settings, with each player's
+current place and their points change, plus the five biggest movers. If the
+proposed settings are not zero-sum — a table totalling anything but 0 — it says
+so, because that quietly makes the standings depend on games played: each game
+shifts a player's total by a fixed amount whatever they do.
+
+The baseline column is recomputed from the same games rather than read from the
+tournament leaderboard, so both columns are derived identically and unranked
+players still appear. `bun run stats -- --uma …` does the same thing offline
+against an archive.
 
 ### Re-posting game results
 
@@ -147,6 +182,8 @@ bun run archive -- 2         # just tournament 2
 bun run stats                # summary of the most recent archive
 bun run stats -- s01-spring-league-2026.json
 bun run stats -- --player Mookjong
+bun run stats -- --uma 30,10,-10,-30 --oka 20   # re-score under other settings
+bun run stats -- --uma 30,10 --return 25000
 ```
 
 `bun run src/smoke-test.ts` checks credentials and prints the latest few games
