@@ -6,14 +6,14 @@ import {
   Colors,
   type SendableChannels,
 } from "discord.js";
-import { RCGame, RCPlayer, RCLeaderboardEntry, RCTournamentInfo } from "./riichicity.ts";
+import { RCGame, RCPlayer, RCTournamentInfo } from "./riichicity.ts";
 import { TournamentConfig } from "./tracker.ts";
 import {
   SeasonSummary,
+  Standing,
   standingsTable,
   dateRange,
   formatGameRef,
-  formatRankScore,
 } from "./stats.ts";
 import { gamePoints, formatGamePoints } from "./scoring.ts";
 import {
@@ -81,7 +81,7 @@ function formatPlayerLine(player: RCPlayer): string {
 export async function sendOrUpdateLeaderboard(
   client: Client,
   config: TournamentConfig,
-  entries: RCLeaderboardEntry[],
+  entries: Standing[],
   existingMessageId?: string,
 ): Promise<string> {
   const channel = await fetchTextChannel(client, config.statusChannelId!);
@@ -103,11 +103,11 @@ export async function sendOrUpdateLeaderboard(
   return msg.id;
 }
 
-function buildLeaderboardEmbed(config: TournamentConfig, entries: RCLeaderboardEntry[]): EmbedBuilder {
+function buildLeaderboardEmbed(config: TournamentConfig, entries: Standing[]): EmbedBuilder {
   const lines = entries.map((e) => {
     const prefix = RANK_EMOJIS[e.rank - 1] ?? `**${e.rank}.**`;
     const games = e.gamesPlayed === 1 ? "1 game" : `${e.gamesPlayed} games`;
-    return `${prefix} **${escapeMarkdown(e.nickname)}** — ${formatRankScore(e.rankScore)} pts *(${games})*`;
+    return `${prefix} **${escapeMarkdown(e.nickname)}** — ${formatGamePoints(e.points)} pts *(${games})*`;
   });
 
   return new EmbedBuilder()
@@ -182,7 +182,7 @@ export function buildSeasonSummaryEmbeds(summary: SeasonSummary): EmbedBuilder[]
 
   const podium = summary.players.slice(0, 3).map((p, i) =>
     `${RANK_EMOJIS[i]} **${escapeMarkdown(p.nickname)}** — ` +
-    `${p.rankScore != null ? formatRankScore(p.rankScore) : "—"} pts ` +
+    `${formatGamePoints(p.leaguePoints)} pts ` +
     `*(${p.gamesPlayed} games, avg place ${p.avgPlacement.toFixed(2)})*`
   );
   if (podium.length) header.addFields({ name: "Podium", value: podium.join("\n") });

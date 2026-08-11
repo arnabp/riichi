@@ -1,11 +1,78 @@
 import { RCGame } from "./riichicity.ts";
-import { SeasonArchive } from "./archive.ts";
+// Type-only: archive.ts imports TournamentConfig from tracker.ts, and tracker.ts
+// imports standings() from here. `import type` is erased, so the cycle never
+// exists at runtime.
+import type { SeasonArchive } from "./archive.ts";
+import {
+  ScoringSettings,
+  SETTINGS,
+  gamePoints,
+  formatGamePoints,
+  roundPoints,
+} from "./scoring.ts";
 
 export interface GameRef {
   paiPuId: string;
   endTime: number;
   points: number;
   nickname: string;
+}
+
+// A league standing computed here, from raw table scores, rather than read from
+// the tournament's own rankScore. This is what Discord posts: the league's
+// uma/oka is not what Riichi City applies (see scoring.ts), and only this side
+// can be recomputed when the settings are corrected.
+export interface Standing {
+  uid: number;
+  nickname: string;  // most recent nickname seen for this uid
+  gamesPlayed: number;
+  points: number;    // cumulative league points, one decimal
+  rank: number;      // 1-indexed; equal totals share a rank
+}
+
+// The single place a set of games becomes a league table. Used for the live
+// standings message, the season summary, and `/season whatif`.
+export function standings(games: RCGame[], settings: ScoringSettings = SETTINGS): Standing[] {
+  interface Acc {
+    uid: number;
+    nickname: string;
+    lastSeen: number;
+    gamesPlayed: number;
+    points: number;
+  }
+  const accs = new Map<number, Acc>();
+
+  for (const game of games) {
+    for (const p of game.players) {
+      let acc = accs.get(p.uid);
+      if (!acc) {
+        acc = { uid: p.uid, nickname: p.nickname, lastSeen: -1, gamesPlayed: 0, points: 0 };
+        accs.set(p.uid, acc);
+      }
+      // Nicknames change mid-season; keep the one from the most recent game.
+      if (game.endTime >= acc.lastSeen) {
+        acc.nickname = p.nickname;
+        acc.lastSeen = game.endTime;
+      }
+      acc.gamesPlayed++;
+      acc.points += gamePoints(p.points, p.rank, settings);
+    }
+  }
+
+  // Sort is stable, so players level on points stay in the order they first
+  // appeared rather than shuffling between polls.
+  const sorted = [...accs.values()]
+    .map((a) => ({ uid: a.uid, nickname: a.nickname, gamesPlayed: a.gamesPlayed, points: roundPoints(a.points) }))
+    .sort((a, b) => b.points - a.points);
+
+  // Standard competition ranking: equal totals share a rank, and the next player
+  // down skips the tied places.
+  const ranked: Standing[] = [];
+  sorted.forEach((s, i) => {
+    const prev = sorted[i - 1];
+    ranked.push({ ...s, rank: prev && prev.points === s.points ? ranked[i - 1].rank : i + 1 });
+  });
+  return ranked;
 }
 
 export interface PlayerStats {
@@ -22,8 +89,13 @@ export interface PlayerStats {
   avgPoints: number;
   bestGame: GameRef;
   worstGame: GameRef;
-  // Carried over from the tournament's own leaderboard when available —
-  // this, not our derived numbers, is the official league standing.
+  // The league standing, computed from the games by standings(). This is the
+  // official number.
+  leaguePoints: number;
+  rank: number;
+  // What the tournament's own leaderboard said at archive time, when the player
+  // appeared on it. Kept for reference only — it is scored under Riichi City's
+  // settings, which the league's no longer match (see scoring.ts).
   rankScore?: number;
   leaderboardRank?: number;
 }
@@ -76,6 +148,11 @@ export function summarize(archive: SeasonArchive): SeasonSummary {
   }
 
   const byUid = new Map(archive.finalLeaderboard.map((e) => [e.userID, e]));
+  // The settings the season was played under, so a finished season keeps
+  // reporting the standings it actually finished with.
+  const table = new Map(
+    standings(archive.games, archive.settings ?? SETTINGS).map((s) => [s.uid, s])
+  );
 
   const players: PlayerStats[] = [...accs.values()].map((acc) => {
     const gamesPlayed = acc.games.length;
@@ -83,6 +160,7 @@ export function summarize(archive: SeasonArchive): SeasonSummary {
     const placementSum = placements.reduce((s, n, i) => s + n * (i + 1), 0);
     const sorted = [...acc.games].sort((a, b) => b.points - a.points);
     const lb = byUid.get(acc.uid);
+    const standing = table.get(acc.uid)!;
 
     return {
       uid: acc.uid,
@@ -98,21 +176,16 @@ export function summarize(archive: SeasonArchive): SeasonSummary {
       avgPoints: gamesPlayed ? acc.totalPoints / gamesPlayed : 0,
       bestGame: sorted[0],
       worstGame: sorted[sorted.length - 1],
+      leaguePoints: standing.points,
+      rank: standing.rank,
       rankScore: lb?.rankScore,
       leaderboardRank: lb?.rank,
     };
   });
 
-  // Official standing first; players missing from the leaderboard fall to the
-  // bottom, ordered by average placement.
-  players.sort((a, b) => {
-    if (a.leaderboardRank != null && b.leaderboardRank != null) {
-      return a.leaderboardRank - b.leaderboardRank;
-    }
-    if (a.leaderboardRank != null) return -1;
-    if (b.leaderboardRank != null) return 1;
-    return a.avgPlacement - b.avgPlacement;
-  });
+  // League standing, which every player has — unlike the tournament's own
+  // leaderboard, which only carries the players it ranked.
+  players.sort((a, b) => a.rank - b.rank);
 
   const allRefs = players.flatMap((p) => [p.bestGame, p.worstGame]).filter(Boolean);
   const times = archive.games.map((g) => g.endTime);
@@ -140,10 +213,10 @@ export function summarize(archive: SeasonArchive): SeasonSummary {
 // placement is available per-player via `bun run stats -- --player <name>`.
 export function standingsTable(s: SeasonSummary): string {
   const head = ["#", "Player", "Pts", "1/2/3/4", "AvgScore"];
-  const rows = s.players.map((p, i) => [
-    String(p.leaderboardRank ?? i + 1),
+  const rows = s.players.map((p) => [
+    String(p.rank),
     p.nickname,
-    p.rankScore != null ? formatRankScore(p.rankScore) : "—",
+    formatGamePoints(p.leaguePoints),
     p.placements.join("/"),
     signed(Math.round(p.avgPoints)),
   ]);

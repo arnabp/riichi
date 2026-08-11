@@ -39,17 +39,24 @@ export const SPRING_2026_SETTINGS: ScoringSettings = {
   uma: [30, 10, -10, -30],
 };
 
-// Season 2 settings — the current defaults. Uma was halved to 15/5/-5/-15 and
-// the oka dropped to 0.
+// Season 2 settings — the current defaults. Uma was halved to 15/5/-5/-15, and
+// the league scores with no oka against a 25,000 return, which balances: a table
+// sums to exactly zero.
 //
-// The uma is verified against the first Season 2 game. That game was played
-// while first place was still being paid the 20-point oka the 30,000 return
-// collects ((30000 - 25000) * 4 / 1000); dropping it is a deliberate league
-// choice made after, so a table now totals -20 rather than balancing, and every
-// game played costs each player 5 on average whatever they do. Both facts are
-// pinned in scoring.test.ts.
+// The season did not start that way. The tournament was set up with a 30,000
+// return, which collects 5,000 a head and so needs a 20-point oka paid back to
+// first place to balance; the oka was then dropped, leaving each table 20 short
+// and quietly costing every player 5 per game played. Both were corrected to
+// the 25,000 return here, and the standings were recomputed and re-posted.
+//
+// That correction is why Discord, not Riichi City, is the league's source of
+// truth for standings: the tournament's own rankScore still reflects how it was
+// originally set up, and cannot be recomputed on their side. Everything the bot
+// posts is derived from raw table scores through gamePoints() (see
+// `standings()` in stats.ts), so it stays internally consistent and can be
+// corrected retroactively. The two will disagree, on purpose.
 export const SEASON_2_SETTINGS: ScoringSettings = {
-  returnPoints: 30_000,
+  returnPoints: 25_000,
   oka: 0,
   uma: [15, 5, -5, -15],
 };
@@ -84,6 +91,13 @@ export function gamePoints(
   // Rounded to one decimal to match the client and to keep binary
   // representation error out of displayed totals.
   return Math.round(((finalScore - settings.returnPoints) / 1000 + uma + oka) * 10) / 10;
+}
+
+// Totals are summed from values gamePoints already rounded to one decimal, so
+// they are re-rounded to keep binary representation error from surfacing in a
+// long season's cumulative standings.
+export function roundPoints(points: number): number {
+  return Math.round(points * 10) / 10;
 }
 
 // Signed, one-decimal rendering: "+103.3", "-52.7", "0.0".

@@ -252,38 +252,36 @@ async function handleWhatIf(interaction: ChatInputCommandInteraction, ctx: Admin
   await interaction.deferReply(isPrivate ? { flags: MessageFlags.Ephemeral } : {});
   const config = resolveTournament(interaction, ctx);
 
-  // Anything not given stays at the current league setting, so `uma:30,10` on
-  // its own answers "what if only the uma changed?".
-  const settings: ScoringSettings = {
-    returnPoints: interaction.options.getNumber("return_points") ?? SETTINGS.returnPoints,
-    oka: interaction.options.getNumber("oka") ?? SETTINGS.oka,
-    uma: parseUma(interaction.options.getString("uma", true)),
-  };
-
   const chosen = interaction.options.getString("season");
-  let games: SeasonArchive["games"];
-  let label: string;
+  let archive: SeasonArchive;
   if (chosen) {
     const match = (await listArchives()).find((p) => p.endsWith(chosen));
     if (!match) throw new Error(`No archive named \`${chosen}\``);
-    const archive = await loadArchive(match);
-    games = archive.games;
-    label = archive.seasonLabel;
+    archive = await loadArchive(match);
   } else {
     // Deliberately not snapshot() — a what-if is a read-only question and has no
     // business overwriting the season's archive on disk.
     const season = await ctx.seasons.ensure(config);
-    const archive = await buildArchive(ctx.rcClient, { ...config, label: season.label }, season.seasonNumber);
-    games = archive.games;
-    label = archive.seasonLabel;
+    archive = await buildArchive(ctx.rcClient, { ...config, label: season.label }, season.seasonNumber);
   }
 
-  if (games.length === 0) {
+  if (archive.games.length === 0) {
     await interaction.editReply("No games recorded for this season yet — nothing to re-score.");
     return;
   }
 
-  const result = recalculate(games, settings);
+  // Compare against the settings that season was actually played under, which
+  // for a past season is not the same as today's. Anything not given stays at
+  // that value too, so `uma:30,10` alone answers "what if only the uma changed?".
+  const baseline = archive.settings ?? SETTINGS;
+  const settings: ScoringSettings = {
+    returnPoints: interaction.options.getNumber("return_points") ?? baseline.returnPoints,
+    oka: interaction.options.getNumber("oka") ?? baseline.oka,
+    uma: parseUma(interaction.options.getString("uma", true)),
+  };
+
+  const label = archive.seasonLabel;
+  const result = recalculate(archive.games, settings, baseline);
   // Discord allows 10 embeds per message; a season's standings needs 2–3.
   await interaction.editReply({
     content: sameSettings(settings, result.baseline)

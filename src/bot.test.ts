@@ -120,7 +120,8 @@ describe("buildWhatIfEmbeds", () => {
   });
 
   it("warns when the proposed ruleset does not balance", () => {
-    const unbalanced = buildWhatIfEmbeds(recalculate(games, S2, S1), "Test League");
+    const mistake = { ...S2, returnPoints: 30_000 };
+    const unbalanced = buildWhatIfEmbeds(recalculate(games, mistake, S2), "Test League");
     expect(unbalanced[0].data.fields!.some((f) => f.name === "Heads up")).toBe(true);
   });
 });

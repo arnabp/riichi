@@ -38,24 +38,58 @@ The game log returns only table scores, never the points a game was worth, so
 `src/scoring.ts` recomputes them:
 
 ```
-points = (tableScore - 30000)/1000 + uma[rank] + oka if 1st
-uma = 15 / 5 / -5 / -15, oka = 0     (Season 2)
-uma = 30 / 10 / -10 / -30, oka = 20  (Season 1)
+points = (tableScore - returnPoints)/1000 + uma[rank] + oka if 1st
+
+Season 1:  return 30000, uma 30 / 10 / -10 / -30, oka 20
+Season 2:  return 25000, uma 15 /  5 /  -5 / -15, oka 0
 ```
 
-The **oka is the 20 the 30,000 return collects** — `(30000 - 25000) * 4 / 1000` —
-handed back to first place. Season 1 paid it; Season 2 does not, so a table now
-sums to **-20 rather than zero**. That is deliberate, but it has a consequence
-worth knowing: every game played moves a player's total by -5 on average
-whatever they do, so the standings partly rank games played. `/season whatif`
-warns whenever a ruleset does not balance.
+An **oka** is whatever the return collects handed back to first place. A 30,000
+return takes 5,000 a head, so it needs `(30000 - 25000) * 4 / 1000 = 20` going
+to the winner for a table to sum to zero — that is Season 1. Season 2 returns to
+the 25,000 starting score, which collects nothing, so there is nothing to hand
+back and the uma alone balances the table. Either way **a table must sum to
+zero**; `/season whatif` warns about any ruleset that doesn't, because the
+shortfall turns into a per-game tax that makes the standings partly rank games
+played.
 
-Both seasons' settings are pinned by tests against real data: Season 1 replays
-all 137 archived games against the tournament's own final standings, and
-Season 2's uma is checked against the first game of the season. If the league's
-settings change, `scoring.test.ts` fails rather than the embeds going quietly
-wrong. Override via `LEAGUE_RETURN_POINTS`, `LEAGUE_UMA`, and `LEAGUE_OKA`
-(see `.env.example`).
+> Season 2 was set up with a 30,000 return and later had its oka dropped, which
+> left each table 20 short and cost every player 5 a game. It was corrected to
+> the 25,000 return above, and the standings were recomputed and re-posted. See
+> **Source of truth** below — this is why Discord, not Riichi City, is
+> authoritative.
+
+Settings are pinned by tests against real data: Season 1 replays all 137
+archived games against the tournament's own final standings, and Season 2 is
+checked against the first game of the season. If the league's settings change,
+`scoring.test.ts` fails rather than the embeds going quietly wrong. Override via
+`LEAGUE_RETURN_POINTS`, `LEAGUE_UMA`, and `LEAGUE_OKA` (see `.env.example`) —
+though changing `src/scoring.ts` is preferable, since the tests pin that and an
+env override silently diverges from it.
+
+## Source of truth
+
+**Everything the bot posts is computed from raw table scores**, by `standings()`
+in `src/stats.ts` — the live standings message, the season summary, the per-game
+points, and `/season whatif`. The tournament's own `rankScore` is fetched and
+archived but never displayed.
+
+This is deliberate. Riichi City scores the tournament under the settings it was
+created with, and those can't be corrected retroactively; the league's can, by
+replaying the games. Since the Season 2 return-points fix, **the two disagree on
+purpose** — expect the bot's numbers and the in-client tournament standings to
+differ, and treat Discord as correct.
+
+Two consequences worth knowing:
+
+- Archives record the settings their season was played under (`settings` in the
+  archive JSON), so a finished season keeps reporting the standings it actually
+  finished with rather than being re-scored under later rules. The Season 1
+  archive was backfilled with its own settings; archives written before that
+  field existed fall back to the current ones.
+- Recomputing the table means paging the whole game history, so the tracker
+  caches it and only recomputes when the tournament's leaderboard moves — which
+  is exactly when a game has finished.
 
 ## Seasons
 
@@ -63,9 +97,9 @@ The league reuses **one tournament ID** across seasons — the tournament is res
 in place rather than recreated. That means the game history on Riichi City's side
 is destroyed at rollover, so **the archive is the only surviving record.**
 
-An archive holds every game (players, scores, placements, timestamps) plus the
-final leaderboard verbatim — `rankScore` bakes in uma/oka rules that can't be
-reliably reconstructed from raw scores, so it is preserved rather than recomputed.
+An archive holds every game (players, scores, placements, timestamps), the
+league settings the season was played under, and the tournament's final
+leaderboard verbatim for reference.
 
 ### Admin commands
 
@@ -110,10 +144,10 @@ proposed settings are not zero-sum — a table totalling anything but 0 — it s
 so, because that quietly makes the standings depend on games played: each game
 shifts a player's total by a fixed amount whatever they do.
 
-The baseline column is recomputed from the same games rather than read from the
-tournament leaderboard, so both columns are derived identically and unranked
-players still appear. `bun run stats -- --uma …` does the same thing offline
-against an archive.
+The baseline column is the season's own settings — today's for the live season,
+the archived ones for a past season — computed by the same `standings()` the
+live table uses, so a what-if under the current settings *is* the current table.
+`bun run stats -- --uma …` does the same thing offline against an archive.
 
 ### Re-posting game results
 

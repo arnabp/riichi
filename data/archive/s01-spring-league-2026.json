@@ -5,6 +5,16 @@
   "classifyId": "d7nabn2tglb1nai4tb30",
   "matchId": 6980483,
   "archivedAt": "2026-08-01T01:17:16.167Z",
+  "settings": {
+    "returnPoints": 30000,
+    "oka": 20,
+    "uma": [
+      30,
+      10,
+      -10,
+      -30
+    ]
+  },
   "games": [
     {
       "paiPuId": "d7nbc0s6mci8rkp930d0",

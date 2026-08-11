@@ -12,8 +12,8 @@
 // tournament can't show up as a phantom swing.
 
 import { RCGame } from "./riichicity.ts";
-import { ScoringSettings, SETTINGS, gamePoints, formatGamePoints } from "./scoring.ts";
-import { table } from "./stats.ts";
+import { ScoringSettings, SETTINGS, gamePoints, formatGamePoints, roundPoints } from "./scoring.ts";
+import { standings, table } from "./stats.ts";
 
 export interface WhatIfRow {
   uid: number;
@@ -42,78 +42,33 @@ export function recalculate(
   settings: ScoringSettings,
   baseline: ScoringSettings = SETTINGS,
 ): WhatIfResult {
-  interface Acc {
-    uid: number;
-    nickname: string;
-    lastSeen: number;
-    gamesPlayed: number;
-    points: number;
-    basePoints: number;
-  }
-  const accs = new Map<number, Acc>();
+  // Both columns come from the same function the live standings do, so a
+  // what-if under the current settings is exactly the current table.
+  const proposed = standings(games, settings);
+  const base = new Map(standings(games, baseline).map((s) => [s.uid, s]));
 
-  for (const game of games) {
-    for (const p of game.players) {
-      let acc = accs.get(p.uid);
-      if (!acc) {
-        acc = { uid: p.uid, nickname: p.nickname, lastSeen: -1, gamesPlayed: 0, points: 0, basePoints: 0 };
-        accs.set(p.uid, acc);
-      }
-      // Nicknames change mid-season; keep the one from the most recent game.
-      if (game.endTime >= acc.lastSeen) {
-        acc.nickname = p.nickname;
-        acc.lastSeen = game.endTime;
-      }
-      acc.gamesPlayed++;
-      acc.points += gamePoints(p.points, p.rank, settings);
-      acc.basePoints += gamePoints(p.points, p.rank, baseline);
-    }
-  }
-
-  // Sum in one decimal place, the unit the client displays, so a long season of
-  // 0.1-rounded additions doesn't accumulate binary representation error.
-  const round = (n: number) => Math.round(n * 10) / 10;
-  const all = [...accs.values()].map((a) => ({
-    ...a,
-    points: round(a.points),
-    basePoints: round(a.basePoints),
-  }));
-
-  const proposedRank = rankMap(all, (a) => a.points);
-  const baseRank = rankMap(all, (a) => a.basePoints);
-
-  const rows: WhatIfRow[] = all.map((a) => ({
-    uid: a.uid,
-    nickname: a.nickname,
-    gamesPlayed: a.gamesPlayed,
-    points: a.points,
-    rank: proposedRank.get(a.uid)!,
-    basePoints: a.basePoints,
-    baseRank: baseRank.get(a.uid)!,
-    pointsDelta: round(a.points - a.basePoints),
-    rankDelta: baseRank.get(a.uid)! - proposedRank.get(a.uid)!,
-  }));
-  rows.sort((a, b) => a.rank - b.rank || b.points - a.points);
+  const rows: WhatIfRow[] = proposed.map((s) => {
+    const b = base.get(s.uid)!;
+    return {
+      uid: s.uid,
+      nickname: s.nickname,
+      gamesPlayed: s.gamesPlayed,
+      points: s.points,
+      rank: s.rank,
+      basePoints: b.points,
+      baseRank: b.rank,
+      pointsDelta: roundPoints(s.points - b.points),
+      rankDelta: b.rank - s.rank,
+    };
+  });
 
   return {
     settings,
     baseline,
     totalGames: games.length,
     rows,
-    tableSum: games.length ? round(tableSumOf(games[0], settings)) : 0,
+    tableSum: games.length ? roundPoints(tableSumOf(games[0], settings)) : 0,
   };
-}
-
-// Standard competition ranking: equal totals share a rank, and the next player
-// down skips the tied places.
-function rankMap<T extends { uid: number }>(items: T[], score: (t: T) => number): Map<number, number> {
-  const sorted = [...items].sort((a, b) => score(b) - score(a));
-  const ranks = new Map<number, number>();
-  sorted.forEach((item, i) => {
-    const prev = sorted[i - 1];
-    ranks.set(item.uid, prev && score(prev) === score(item) ? ranks.get(prev.uid)! : i + 1);
-  });
-  return ranks;
 }
 
 function tableSumOf(game: RCGame, settings: ScoringSettings): number {

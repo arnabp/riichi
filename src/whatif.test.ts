@@ -70,10 +70,11 @@ describe("recalculate", () => {
     const byUid = new Map(result.rows.map((r) => [r.uid, r]));
 
     // uid 1: 1st with 50,000 then 4th with 24,100.
-    // S1: (20 + 30 + 20) + (-5.9 - 30) = 34.1.  S2: (20 + 15) + (-5.9 - 15) = 14.1.
+    // S1 (30,000 return): (20 + 30 + 20) + (-5.9 - 30) = 34.1.
+    // S2 (25,000 return): (25 + 15) + (-0.9 - 15)      = 24.1.
     expect(byUid.get(1)!.points).toBeCloseTo(34.1, 6);
-    expect(byUid.get(1)!.basePoints).toBeCloseTo(14.1, 6);
-    expect(byUid.get(1)!.pointsDelta).toBeCloseTo(20, 6);
+    expect(byUid.get(1)!.basePoints).toBeCloseTo(24.1, 6);
+    expect(byUid.get(1)!.pointsDelta).toBeCloseTo(10, 6);
     expect(byUid.get(1)!.gamesPlayed).toBe(2);
   });
 
@@ -129,12 +130,17 @@ describe("recalculate", () => {
 
 describe("balanceWarning", () => {
   it("stays quiet for a zero-sum ruleset", () => {
+    // Both of the league's rulesets balance: S1 by paying back its oka, S2 by
+    // returning to the starting score so there is nothing to pay back.
     expect(balanceWarning(recalculate(GAMES, S1, S1))).toBeUndefined();
+    expect(balanceWarning(recalculate(GAMES, S2, S2))).toBeUndefined();
   });
 
   it("flags a ruleset where the table does not balance", () => {
-    // 30,000 return with no oka leaves each table 20 short.
-    const warning = balanceWarning(recalculate(GAMES, S2, S2));
+    // The mistake Season 2 was played with for a while: a 30,000 return with
+    // the oka dropped leaves each table 20 short.
+    const mistake = { ...S2, returnPoints: 30_000 };
+    const warning = balanceWarning(recalculate(GAMES, mistake, S2));
     expect(warning).toContain("-20.0");
     expect(warning).toContain("not zero-sum");
   });

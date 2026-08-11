@@ -7,6 +7,8 @@ import {
   RiichiCityClient,
   SessionExpiredError,
 } from "./riichicity.ts";
+import { Standing, standings } from "./stats.ts";
+import { fetchAllGames } from "./archive.ts";
 
 const STATE_FILE = process.env.STATE_FILE ?? resolve("seen_games.json");
 const STATUS_FILE = process.env.STATUS_FILE ?? resolve("status_state.json");
@@ -21,7 +23,13 @@ export interface TournamentConfig {
 
 export interface TournamentStatus {
   info: RCTournamentInfo;
+  // What the tournament itself has, scored under its own settings. Not what the
+  // bot posts — see `standings` below — but it is cheap, it is fetched anyway,
+  // and it is the signal that something has changed.
   leaderboard: RCLeaderboardEntry[];
+  // The league table, recomputed from raw game scores under the league's own
+  // uma/oka. This is what goes in the standings message.
+  standings: Standing[];
 }
 
 // Per-tournament state persisted to status_state.json
@@ -38,6 +46,7 @@ export class GameTracker {
   private tournamentInfo = new Map<string, RCTournamentInfo>(); // tournamentId → info
   private seenIds = new Set<string>();
   private statusState: StatusState = {};
+  private standingsCache = new Map<string, { key: string; standings: Standing[] }>();
 
   constructor(
     private client: RiichiCityClient,
@@ -91,10 +100,31 @@ export class GameTracker {
       this.tournamentInfo.set(config.tournamentId, info);
 
       const leaderboard = await this.client.getLeaderboard(info.classifyId, info.matchId);
-      results.push({ config, status: { info, leaderboard } });
+      const computed = await this.standingsFor(config.tournamentId, info.classifyId, leaderboard);
+      results.push({ config, status: { info, leaderboard, standings: computed } });
     }
 
     return results;
+  }
+
+  // Recomputing the league table means paging the whole game history, which is
+  // far too expensive to repeat every poll. The tournament's own leaderboard
+  // moves whenever a game finishes, so it serves as the cache key: while it is
+  // unchanged, no game has completed and the table cannot have moved either.
+  private async standingsFor(
+    tournamentId: string,
+    classifyId: string,
+    leaderboard: RCLeaderboardEntry[],
+  ): Promise<Standing[]> {
+    const key = leaderboardKey(leaderboard);
+    const cached = this.standingsCache.get(tournamentId);
+    if (cached && cached.key === key) return cached.standings;
+
+    const games = await fetchAllGames(this.client, classifyId);
+    const computed = standings(games);
+    this.standingsCache.set(tournamentId, { key, standings: computed });
+    console.log(`[Tracker] Recomputed standings for ${tournamentId} from ${games.length} games`);
+    return computed;
   }
 
   // ── Season rollover ─────────────────────────────────────────────────────────
@@ -106,6 +136,9 @@ export class GameTracker {
   async resetSeason(tournamentId: string, archivedGameIds: string[]): Promise<void> {
     this.seenIds = new Set(archivedGameIds);
     delete this.statusState[tournamentId];
+    // The new season starts from an empty table; a stale cache would keep
+    // posting the old one until a game finished.
+    this.standingsCache.delete(tournamentId);
     await this.saveState();
     await this.saveStatusState();
     console.log(
@@ -123,6 +156,7 @@ export class GameTracker {
 
   // Refresh cached tournament info after a reset (classifyId can change).
   async refreshTournament(tournamentId: string): Promise<RCTournamentInfo> {
+    this.standingsCache.delete(tournamentId);
     const info = await this.client.enterTournament(tournamentId);
     this.tournamentInfo.set(tournamentId, info);
     return info;
@@ -187,6 +221,13 @@ export class GameTracker {
     await Bun.write(tmp, JSON.stringify(this.statusState, null, 2));
     await rename(tmp, this.statusFile);
   }
+}
+
+// Everything about the tournament's leaderboard that moves when a game
+// finishes. Only used to decide whether the league table needs recomputing, so
+// it errs towards recomputing: any change at all invalidates it.
+function leaderboardKey(entries: RCLeaderboardEntry[]): string {
+  return JSON.stringify(entries.map((e) => [e.userID, e.gamesPlayed, e.rankScore]));
 }
 
 // Wrap a poll with automatic session re-login on expiry

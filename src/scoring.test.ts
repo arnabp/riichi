@@ -39,13 +39,16 @@ describe("gamePoints", () => {
 
 // The real figures from the first Season 2 game, when the tournament had
 // exactly one game scored so each player's cumulative standing equalled that
-// single game's points. It was played while a 20-point oka was still going to
-// first place — that is what these numbers show, and it pins the uma at
-// 15/5/-5/-15, which is the part that carries over.
+// single game's points.
 //
-// The league has since dropped the oka (see SEASON_2_SETTINGS), so this block
-// records what the tournament did at the time; the block below it covers the
-// settings in force now.
+// The season was set up with a 30,000 return and a 20-point oka, which is what
+// these numbers show and what the tournament still scores by. The league has
+// since corrected the return to 25,000 with no oka — the same thing for the
+// three losing placements, and 20 lower for the winner. This block pins what
+// Riichi City did; the one below it pins what the league now does. That the two
+// differ is the point: Discord is the source of truth.
+const AS_THE_TOURNAMENT_SCORED_IT = { returnPoints: 30_000, oka: 20, uma: [15, 5, -5, -15] };
+
 const FIRST_SEASON_2_GAME: { score: number; rank: number; points: number }[] = [
   { score: 44_700, rank: 1, points: 49.7 },
   { score: 27_600, rank: 2, points: 2.6 },
@@ -54,44 +57,41 @@ const FIRST_SEASON_2_GAME: { score: number; rank: number; points: number }[] = [
 ];
 
 describe("first Season 2 game, as the tournament scored it", () => {
-  const withOka = { ...S2, oka: 20 };
-
-  it("reproduces every player's score under the oka it was played with", () => {
+  it("reproduces every player's score under the settings it was played with", () => {
     for (const { score, rank, points } of FIRST_SEASON_2_GAME) {
-      expect(gamePoints(score, rank, withOka)).toBeCloseTo(points, 1);
+      expect(gamePoints(score, rank, AS_THE_TOURNAMENT_SCORED_IT)).toBeCloseTo(points, 1);
     }
   });
 
-  it("is zero-sum with that oka", () => {
-    const sum = FIRST_SEASON_2_GAME.reduce((s, t) => s + gamePoints(t.score, t.rank, withOka), 0);
+  it("is zero-sum, because the oka hands back what the 30,000 return collects", () => {
+    const sum = FIRST_SEASON_2_GAME.reduce(
+      (s, t) => s + gamePoints(t.score, t.rank, AS_THE_TOURNAMENT_SCORED_IT), 0
+    );
     expect(sum).toBeCloseTo(0, 6);
   });
 });
 
-// Season 2 halved the uma to 15/5/-5/-15 and pays first place no oka. The
-// 30,000 return still collects 5,000 from each player, so with nothing handing
-// that back to the winner a table no longer balances — this is a deliberate
-// league choice, and these tests pin its consequences so neither shows up as a
-// surprise later.
-describe("Season 2 settings, as they stand now", () => {
-  it("gives first place the uma and nothing else", () => {
-    // Same winning score as the game above: 20 lower without the oka.
-    expect(gamePoints(44_700, 1, S2)).toBeCloseTo(29.7, 1);
+// The corrected settings: 25,000 return, no oka, uma 15/5/-5/-15. A 25,000
+// return against a 25,000 start collects nothing, so there is nothing for an
+// oka to hand back and the table balances on the uma alone.
+describe("Season 2 settings, as the league now scores them", () => {
+  it("pays first place the uma over its margin above the starting score", () => {
+    expect(gamePoints(44_700, 1, S2)).toBeCloseTo(34.7, 1);
   });
 
-  it("scores the other placements identically to before — only 1st is affected", () => {
-    for (const { score, rank, points } of FIRST_SEASON_2_GAME.slice(1)) {
-      expect(gamePoints(score, rank, S2)).toBeCloseTo(points, 1);
-    }
-  });
-
-  // A table 20 short means every game played moves a player's total by -5 on
-  // average whatever they do, so the standings partly rank games played rather
-  // than performance. `/season whatif` warns about this for any ruleset that
-  // does not balance (see whatif.ts).
-  it("leaves each table 20 short of zero-sum, the oka the return collects", () => {
+  it("is zero-sum", () => {
     const sum = FIRST_SEASON_2_GAME.reduce((s, t) => s + gamePoints(t.score, t.rank, S2), 0);
-    expect(sum).toBeCloseTo(-20, 6);
+    expect(sum).toBeCloseTo(0, 6);
+  });
+
+  // The whole effect of the correction, and the reason the standings could be
+  // recomputed and re-posted without reordering much: it is a flat +5 a game,
+  // so only players with unequal game counts move relative to each other.
+  it("is worth exactly +5 a game to every player, whatever they placed", () => {
+    for (const { score, rank } of FIRST_SEASON_2_GAME) {
+      const before = gamePoints(score, rank, { ...S2, returnPoints: 30_000 });
+      expect(gamePoints(score, rank, S2) - before).toBeCloseTo(5, 6);
+    }
   });
 });
 

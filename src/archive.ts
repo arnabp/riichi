@@ -5,7 +5,10 @@ import {
   RCLeaderboardEntry,
   RiichiCityClient,
 } from "./riichicity.ts";
-import { TournamentConfig } from "./tracker.ts";
+// Type-only: tracker.ts imports fetchAllGames from here, and `import type` is
+// erased, so the two modules never form a cycle at runtime.
+import type { TournamentConfig } from "./tracker.ts";
+import { ScoringSettings, SETTINGS } from "./scoring.ts";
 
 export const ARCHIVE_DIR = process.env.ARCHIVE_DIR ?? resolve("data/archive");
 
@@ -21,9 +24,16 @@ export interface SeasonArchive {
   classifyId: string;
   matchId: number;
   archivedAt: string; // ISO timestamp
+  // The league settings the season was played under. Standings are recomputed
+  // from raw scores, so without this a finished season would be re-scored under
+  // whatever the rules happen to be later — Spring League 2026 was played with
+  // 30/10/-10/-30 and an oka, and has to keep being reported that way.
+  // Optional only because archives written before this field existed lack it;
+  // those fall back to the current settings.
+  settings?: ScoringSettings;
   games: RCGame[];    // oldest first
-  // The tournament's own scoring at archive time. Preserved verbatim because
-  // rankScore bakes in uma/oka rules we can't reliably reconstruct from raw points.
+  // The tournament's own scoring at archive time. Preserved verbatim: it is
+  // scored under Riichi City's settings, which the league's need not match.
   finalLeaderboard: RCLeaderboardEntry[];
 }
 
@@ -67,6 +77,7 @@ export async function buildArchive(
     classifyId: info.classifyId,
     matchId: info.matchId,
     archivedAt: new Date().toISOString(),
+    settings: SETTINGS,
     games,
     finalLeaderboard,
   };

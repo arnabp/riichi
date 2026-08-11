@@ -7,7 +7,7 @@
 
 import { listArchives, loadArchive } from "./archive.ts";
 import { summarize, formatSummaryText, pct, signed, formatRankScore } from "./stats.ts";
-import { SETTINGS } from "./scoring.ts";
+import { SETTINGS, formatGamePoints } from "./scoring.ts";
 import { recalculate, parseUma, formatWhatIfText } from "./whatif.ts";
 
 const args = process.argv.slice(2);
@@ -48,11 +48,14 @@ if (umaArg) {
     }
     return n;
   };
+  // Defaults and the comparison column come from the settings the archived
+  // season was played under, which for a past season is not today's.
+  const base = archive.settings ?? SETTINGS;
   let settings;
   try {
     settings = {
-      returnPoints: num("--return", SETTINGS.returnPoints),
-      oka: num("--oka", SETTINGS.oka),
+      returnPoints: num("--return", base.returnPoints),
+      oka: num("--oka", base.oka),
       uma: parseUma(umaArg),
     };
   } catch (err) {
@@ -60,7 +63,8 @@ if (umaArg) {
     console.error(err instanceof Error ? err.message : String(err));
     process.exit(1);
   }
-  console.log(formatWhatIfText(recalculate(archive.games, settings), archive.seasonLabel));
+  const result = recalculate(archive.games, settings, base);
+  console.log(formatWhatIfText(result, archive.seasonLabel));
   process.exit(0);
 }
 
@@ -78,8 +82,12 @@ if (!playerName) {
     process.exit(1);
   }
   console.log(`=== ${p.nickname} — ${summary.seasonLabel} ===`);
-  console.log(`Standing:        ${p.leaderboardRank ?? "—"}` +
-    (p.rankScore != null ? `  (${formatRankScore(p.rankScore)} pts)` : ""));
+  console.log(`Standing:        ${p.rank}  (${formatGamePoints(p.leaguePoints)} pts)`);
+  if (p.rankScore != null) {
+    // Riichi City scores the tournament under its own settings, which the
+    // league's no longer match; shown so a discrepancy can be traced.
+    console.log(`Riichi City had: ${p.leaderboardRank}  (${formatRankScore(p.rankScore)} pts)`);
+  }
   console.log(`Games played:    ${p.gamesPlayed}`);
   console.log(`Avg placement:   ${p.avgPlacement.toFixed(3)}`);
   console.log(`Placements:      1st ${p.placements[0]} · 2nd ${p.placements[1]} · ` +

@@ -1,5 +1,6 @@
 import { describe, it, expect } from "bun:test";
-import { fetchAllGames, archiveFilename, SeasonArchive } from "./archive.ts";
+import { fetchAllGames, buildArchive, archiveFilename, SeasonArchive } from "./archive.ts";
+import { SETTINGS } from "./scoring.ts";
 import { RCGame, RiichiCityClient } from "./riichicity.ts";
 
 function game(id: string, endTime: number): RCGame {
@@ -97,5 +98,37 @@ describe("archiveFilename", () => {
 
   it("falls back to 'season' when the label has no usable characters", () => {
     expect(archiveFilename({ ...base, seasonLabel: "!!!" })).toBe("s01-season.json");
+  });
+});
+
+describe("buildArchive", () => {
+  const client = {
+    enterTournament: async () => ({
+      classifyId: "c1", matchId: 7, onlineSize: 0, ongoingGames: 0, queueSize: 0,
+    }),
+    getCompletedGamesPage: async (_c: string, skip: number) => {
+      const page = skip === 0 ? [game("a", 1)] : [];
+      return { games: page, rawCount: page.length };
+    },
+    getLeaderboard: async () => [
+      { rank: 1, userID: 1, nickname: "A", rankScore: 400, gamesPlayed: 1 },
+    ],
+  } as unknown as RiichiCityClient;
+
+  const config = { tournamentId: "t1", discordChannelId: "chan", label: "Test Season" };
+
+  it("stamps the settings the season was played under", async () => {
+    // Standings are recomputed from raw scores, so an archive without this
+    // would be re-scored under whatever the rules become later.
+    const archive = await buildArchive(client, config, 2);
+    expect(archive.settings).toEqual(SETTINGS);
+  });
+
+  it("records the games and the tournament's own leaderboard", async () => {
+    const archive = await buildArchive(client, config, 2);
+    expect(archive.games.map((g) => g.paiPuId)).toEqual(["a"]);
+    expect(archive.finalLeaderboard[0].rankScore).toBe(400);
+    expect(archive.seasonNumber).toBe(2);
+    expect(archive.matchId).toBe(7);
   });
 });

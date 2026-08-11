@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { Events, MessageFlags } from "discord.js";
-import { RiichiCityClient, RCLeaderboardEntry, RCTournamentInfo } from "./riichicity.ts";
+import { RiichiCityClient, RCTournamentInfo } from "./riichicity.ts";
+import { Standing } from "./stats.ts";
 import { GameTracker, TournamentConfig, withSessionRetry } from "./tracker.ts";
 import {
   createDiscordClient,
@@ -18,9 +19,11 @@ const POLL_INTERVAL_MS = Number(process.env.POLL_INTERVAL_MS ?? 30_000);
 
 // ── Status change detection ───────────────────────────────────────────────────
 
-function leaderboardHash(entries: RCLeaderboardEntry[]): string {
+// Hashes the standings as posted, not the tournament's own leaderboard: the
+// message only needs editing when what it displays changes.
+function standingsHash(entries: Standing[]): string {
   return createHash("md5")
-    .update(JSON.stringify(entries.map((e) => ({ id: e.userID, score: e.rankScore, games: e.gamesPlayed }))))
+    .update(JSON.stringify(entries.map((e) => ({ id: e.uid, score: e.points, games: e.gamesPlayed }))))
     .digest("hex");
 }
 
@@ -157,11 +160,11 @@ async function runPoll(
         const msgIds = tracker.getStatusMessageIds(tournamentId);
 
         // Leaderboard: edit in-place if changed
-        const newLeaderHash = leaderboardHash(status.leaderboard);
+        const newLeaderHash = standingsHash(status.standings);
         if (newLeaderHash !== lastLeaderHash.get(tournamentId)) {
           lastLeaderHash.set(tournamentId, newLeaderHash);
           const id = await sendOrUpdateLeaderboard(
-            discordClient, config, status.leaderboard, msgIds.leaderboardMessageId
+            discordClient, config, status.standings, msgIds.leaderboardMessageId
           );
           await tracker.setLeaderboardMessageId(tournamentId, id);
           console.log(`[Main] Leaderboard updated for "${config.label}"`);
