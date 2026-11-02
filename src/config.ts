@@ -43,3 +43,14 @@ export function loadAdminIds(): Set<string> {
 export function guildId(): string | undefined {
   return process.env.DISCORD_GUILD_ID;
 }
+
+// Channel the 📉/📈 InjusticeJudge reports get posted to (the league's
+// #general). Unset disables the feature outright: no reactions are added to
+// game results, so nothing invites a click that would go nowhere.
+export function reportChannelId(): string | undefined {
+  return process.env.INJUSTICE_CHANNEL;
+}
+
+export function reportsEnabled(): boolean {
+  return reportChannelId() !== undefined;
+}

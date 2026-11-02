@@ -13,6 +13,9 @@ services:
       # reset, so they live on the persistent volume.
       SEASON_FILE: /app/data/season_state.json
       ARCHIVE_DIR: /app/data/archive
+      # Raw game logs InjusticeJudge has already fetched. On the volume so a
+      # restart doesn't re-fetch, and so the second report on a game is instant.
+      INJUSTICE_CACHE_DIR: /app/data/injustice-cache
 
 volumes:
   bot-data:

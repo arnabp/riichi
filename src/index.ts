@@ -10,7 +10,8 @@ import {
   sendOrUpdateLeaderboard,
   sendOrRecreateQueue,
 } from "./bot.ts";
-import { loadTournaments, requireEnv, guildId } from "./config.ts";
+import { loadTournaments, requireEnv, guildId, reportChannelId, reportsEnabled } from "./config.ts";
+import { registerReportReactions } from "./reports.ts";
 import { SeasonStore } from "./season.ts";
 import { listArchives } from "./archive.ts";
 import { registerCommands, handleInteraction, type AdminContext } from "./admin.ts";
@@ -84,6 +85,23 @@ async function main() {
     console.error("[Main] Slash command registration failed:", err);
   });
 
+  const reportChannel = reportChannelId();
+  if (reportChannel) {
+    registerReportReactions(discordClient, {
+      reportChannelId: reportChannel,
+      // Reactions only mean something on a game result, so a click is only
+      // serviced in a channel some tournament posts results to. Labels come
+      // from the season store for the same reason postGameResult does it.
+      resolveByChannel: (channelId) => {
+        const raw = tournaments.find((t) => t.discordChannelId === channelId);
+        return raw ? seasons.resolve(raw) : undefined;
+      },
+    });
+    console.log(`[Main] Injustice/skill reports → channel ${reportChannel}`);
+  } else {
+    console.log("[Main] INJUSTICE_CHANNEL unset — skipping injustice/skill reports");
+  }
+
   discordClient.on(Events.InteractionCreate, async (interaction) => {
     if (interaction.isAutocomplete()) {
       const files = (await listArchives()).map((p) => p.split("/").pop()!);
@@ -149,7 +167,7 @@ async function runPoll(
         console.log(
           `[Main] New game in "${config.label}": ${game.paiPuId} — winner: ${game.players[0]?.nickname}`
         );
-        await postGameResult(discordClient, config, game);
+        await postGameResult(discordClient, config, game, reportsEnabled());
       }
 
       // ── Status updates → status channel ──────────────────────────────────

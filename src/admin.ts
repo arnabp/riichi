@@ -17,7 +17,7 @@ import { postSeasonSummary, postGameResult, buildWhatIfEmbeds } from "./bot.ts";
 import { ScoringSettings, SETTINGS } from "./scoring.ts";
 import { recalculate, parseUma, sameSettings } from "./whatif.ts";
 import { purgeChannelSafely, PurgeRefused } from "./purge.ts";
-import { loadAdminIds } from "./config.ts";
+import { loadAdminIds, reportsEnabled } from "./config.ts";
 
 export const SEASON_COMMAND = new SlashCommandBuilder()
   .setName("season")
@@ -310,7 +310,7 @@ async function handleRepost(interaction: ChatInputCommandInteraction, ctx: Admin
   const ordered = [...games].sort((a, b) => a.endTime - b.endTime);
   const labelled = { ...config, label: season.label };
   for (const game of ordered) {
-    await postGameResult(interaction.client, labelled, game);
+    await postGameResult(interaction.client, labelled, game, reportsEnabled());
   }
 
   // These may not be in the seen set — if the state file was cleared, or a game

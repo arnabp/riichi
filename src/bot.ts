@@ -3,7 +3,9 @@ import {
   EmbedBuilder,
   Events,
   GatewayIntentBits,
+  Partials,
   Colors,
+  type Message,
   type SendableChannels,
 } from "discord.js";
 import { RCGame, RCPlayer, RCTournamentInfo } from "./riichicity.ts";
@@ -22,6 +24,7 @@ import {
   describeSettings,
   balanceWarning,
 } from "./whatif.ts";
+import { ReportMode } from "./injustice.ts";
 
 const RANK_EMOJIS = ["🥇", "🥈", "🥉"];
 
@@ -34,7 +37,12 @@ export function whenReady(client: Client): Promise<void> {
 }
 
 export function createDiscordClient(): Client {
-  const intents = [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages];
+  const intents = [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    // Needed for the 📉/📈 report reactions on game results. Not privileged.
+    GatewayIntentBits.GuildMessageReactions,
+  ];
   // MessageContent is a privileged intent: requesting it while it is switched
   // off in the developer portal makes login fail outright. It is only needed so
   // a channel backup captures human-written messages before a purge, so it stays
@@ -42,22 +50,44 @@ export function createDiscordClient(): Client {
   if (process.env.ENABLE_MESSAGE_CONTENT === "true") {
     intents.push(GatewayIntentBits.MessageContent);
   }
-  return new Client({ intents });
+  // Reactions arrive for messages the bot has not cached — anything posted
+  // before the last restart. Without these partials discord.js drops those
+  // events entirely, so the buttons would go dead on every redeploy.
+  const partials = [Partials.Message, Partials.Channel, Partials.Reaction];
+  return new Client({ intents, partials });
 }
 
 // ── Games channel ─────────────────────────────────────────────────────────────
 
+// The two reactions the bot seeds a game result with. Clicking one posts the
+// matching InjusticeJudge report — see reports.ts.
+export const INJUSTICE_EMOJI = "📉";
+export const SKILL_EMOJI = "📈";
+
 export async function postGameResult(
   client: Client,
   config: TournamentConfig,
-  game: RCGame
+  game: RCGame,
+  withReportReactions = false,
 ): Promise<void> {
   const channel = await fetchTextChannel(client, config.discordChannelId);
   if (!channel) return;
-  await channel.send({ embeds: [buildResultEmbed(config, game)] });
+  const msg = await channel.send({ embeds: [buildResultEmbed(config, game)] });
+  if (withReportReactions) await addReportReactions(msg);
 }
 
-function buildResultEmbed(config: TournamentConfig, game: RCGame): EmbedBuilder {
+// Best-effort: a missing Add Reactions permission should not turn a posted
+// result into a failed poll, and the result itself is still correct without them.
+export async function addReportReactions(msg: Message): Promise<void> {
+  try {
+    await msg.react(INJUSTICE_EMOJI);
+    await msg.react(SKILL_EMOJI);
+  } catch (err) {
+    console.error(`[Bot] Could not add report reactions to ${msg.id}:`, err);
+  }
+}
+
+export function buildResultEmbed(config: TournamentConfig, game: RCGame): EmbedBuilder {
   const timestamp = new Date(game.endTime * 1000);
   const description = game.players.map(formatPlayerLine).join("\n");
   return new EmbedBuilder()
@@ -206,7 +236,7 @@ export function buildSeasonSummaryEmbeds(summary: SeasonSummary): EmbedBuilder[]
   if (notable.length) header.addFields({ name: "Notable", value: notable.join("\n") });
 
   const embeds = [header];
-  for (const chunk of chunkTable(standingsTable(summary))) {
+  for (const chunk of chunkLines(standingsTable(summary))) {
     embeds.push(
       new EmbedBuilder().setColor(Colors.Blue).setDescription("```\n" + chunk + "\n```")
     );
@@ -218,7 +248,7 @@ export function buildSeasonSummaryEmbeds(summary: SeasonSummary): EmbedBuilder[]
 }
 
 // Split on line boundaries so no row is cut in half.
-function chunkTable(text: string): string[] {
+export function chunkLines(text: string): string[] {
   const chunks: string[] = [];
   let current = "";
   for (const line of text.split("\n")) {
@@ -261,7 +291,7 @@ export function buildWhatIfEmbeds(result: WhatIfResult, label: string): EmbedBui
   if (warning) header.addFields({ name: "Heads up", value: warning });
 
   const embeds = [header];
-  for (const chunk of chunkTable(whatIfTable(result))) {
+  for (const chunk of chunkLines(whatIfTable(result))) {
     embeds.push(
       new EmbedBuilder().setColor(Colors.Purple).setDescription("```\n" + chunk + "\n```")
     );
@@ -279,10 +309,10 @@ export async function postSeasonSummary(
 ): Promise<void> {
   const channel = await fetchTextChannel(client, channelId);
   if (!channel) throw new Error(`Channel ${channelId} not found`);
-  // Discord allows up to 10 embeds per message.
-  const embeds = buildSeasonSummaryEmbeds(summary);
-  for (let i = 0; i < embeds.length; i += 10) {
-    await channel.send({ embeds: embeds.slice(i, i + 10) });
+  // Same 10-embed / 6000-character cap as the reports — a big enough league
+  // would have split the standings into chunks that overflow it together.
+  for (const batch of batchEmbeds(buildSeasonSummaryEmbeds(summary))) {
+    await channel.send({ embeds: batch });
   }
 }
 
@@ -292,6 +322,110 @@ function maxBy<T>(items: T[], key: (t: T) => number): T | undefined {
 
 function minBy<T>(items: T[], key: (t: T) => number): T | undefined {
   return items.reduce<T | undefined>((best, x) => (!best || key(x) < key(best) ? x : best), undefined);
+}
+
+// ── Injustice / skill reports ─────────────────────────────────────────────────
+
+export interface ReportContext {
+  mode: ReportMode;
+  label: string;   // tournament label the game belongs to
+  gameId: string;
+  gameUrl?: string; // link back to the result message the reaction was on
+}
+
+// InjusticeJudge already formats each line as Discord markdown (bold names,
+// unicode mahjong tiles), so the lines go in as-is — escaping them would show
+// the asterisks instead of applying them.
+export function buildReportEmbeds(results: string[], ctx: ReportContext): EmbedBuilder[] {
+  const injustice = ctx.mode === "injustice";
+  const title = injustice
+    ? `${INJUSTICE_EMOJI} Injustices — ${ctx.label}`
+    : `${SKILL_EMOJI} Skills — ${ctx.label}`;
+  const color = injustice ? Colors.Red : Colors.Green;
+
+  if (results.length === 0) {
+    return [
+      new EmbedBuilder()
+        .setColor(color)
+        .setTitle(title)
+        .setDescription(
+          injustice
+            ? "*No injustices detected. A fair game, for once.*"
+            : "*No skills detected. It happens.*"
+        )
+        .setFooter({ text: footerText(ctx) })
+        .setTimestamp(),
+    ];
+  }
+
+  const chunks = chunkLines(results.join("\n"));
+  const embeds = chunks.map((chunk, i) =>
+    new EmbedBuilder()
+      .setColor(color)
+      .setDescription(chunk)
+      // Only the first embed carries the title, so a long report reads as one
+      // report rather than several.
+      .setTitle(i === 0 ? title : null)
+  );
+  if (ctx.gameUrl) {
+    embeds[0].setURL(ctx.gameUrl);
+  }
+  embeds[embeds.length - 1]
+    .setFooter({ text: footerText(ctx) })
+    .setTimestamp();
+  return embeds;
+}
+
+function footerText(ctx: ReportContext): string {
+  return `Game ID: ${ctx.gameId} · via InjusticeJudge`;
+}
+
+// Discord limits a message to 10 embeds *and* 6000 characters summed across
+// all of them — so chunks sized against the 4096 per-embed description limit
+// cannot simply be sent ten at a time. A long report is split across messages
+// instead, which Discord renders as one continuous run of embeds anyway.
+const EMBED_TOTAL_LIMIT = 6000;
+const EMBEDS_PER_MESSAGE = 10;
+
+export function batchEmbeds(embeds: EmbedBuilder[]): EmbedBuilder[][] {
+  const batches: EmbedBuilder[][] = [];
+  let batch: EmbedBuilder[] = [];
+  let size = 0;
+
+  for (const embed of embeds) {
+    const length = embedLength(embed);
+    if (batch.length > 0 && (batch.length >= EMBEDS_PER_MESSAGE || size + length > EMBED_TOTAL_LIMIT)) {
+      batches.push(batch);
+      batch = [];
+      size = 0;
+    }
+    batch.push(embed);
+    size += length;
+  }
+  if (batch.length) batches.push(batch);
+  return batches;
+}
+
+// The limit counts every rendered character, so title and footer count too.
+function embedLength(embed: EmbedBuilder): number {
+  const { title, description, footer, fields } = embed.data;
+  return (title?.length ?? 0) +
+    (description?.length ?? 0) +
+    (footer?.text.length ?? 0) +
+    (fields ?? []).reduce((sum, f) => sum + f.name.length + f.value.length, 0);
+}
+
+export async function postReport(
+  client: Client,
+  channelId: string,
+  results: string[],
+  ctx: ReportContext,
+): Promise<void> {
+  const channel = await fetchTextChannel(client, channelId);
+  if (!channel) throw new Error(`Report channel ${channelId} not found`);
+  for (const batch of batchEmbeds(buildReportEmbeds(results, ctx))) {
+    await channel.send({ embeds: batch });
+  }
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────

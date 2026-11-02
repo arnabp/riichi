@@ -208,5 +208,9 @@ data/season_state.json
 # keep them on the volume, not in the repo.
 data/archive/channels/
 
+# Raw game logs InjusticeJudge caches. Re-fetchable, and large.
+data/injustice-cache/
+cached_games/
+
 # Season archives (data/archive/*.json) are deliberately NOT ignored: once a
 # tournament is reset they are the only surviving record of that season.
