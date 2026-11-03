@@ -1,7 +1,7 @@
 import { describe, it, expect } from "bun:test";
-import type { Message } from "discord.js";
+import type { Client, Message } from "discord.js";
 import { parseGameId, parsePlayerCount } from "./reports.ts";
-import { INJUSTICE_EMOJI, SKILL_EMOJI, buildResultEmbed } from "./bot.ts";
+import { INJUSTICE_EMOJI, SKILL_EMOJI, buildResultEmbed, postGameResult } from "./bot.ts";
 import { RCGame } from "./riichicity.ts";
 
 // A game result is the only thing a report reaction can be serviced from, so
@@ -124,6 +124,62 @@ describe("round-trip through a real result embed", () => {
     const msg = asMessage(nasty);
     expect(parseGameId(msg)).toBe(GAME.paiPuId);
     expect(parsePlayerCount(msg)).toBe(4);
+  });
+});
+
+describe("postGameResult reaction seeding", () => {
+  // Enough of a client for postGameResult: a sendable channel that hands back a
+  // message whose reactions we can observe.
+  function fakeClient() {
+    const reacted: string[] = [];
+    const client = {
+      channels: {
+        fetch: async () => ({
+          isSendable: () => true,
+          send: async () => ({
+            id: "m1",
+            react: async (emoji: string) => {
+              reacted.push(emoji);
+            },
+          }),
+        }),
+      },
+    } as unknown as Client;
+    return { client, reacted };
+  }
+
+  const base = { tournamentId: "t1", discordChannelId: "results", label: "Season 2" };
+
+  it("seeds both reactions when a report channel is configured", async () => {
+    const { client, reacted } = fakeClient();
+    await postGameResult(client, { ...base, injusticeChannelId: "general" }, GAME);
+    expect(reacted).toEqual([INJUSTICE_EMOJI, SKILL_EMOJI]);
+  });
+
+  it("adds no reactions when reporting is off for that tournament", async () => {
+    // Nothing should invite a click that would have nowhere to post.
+    const { client, reacted } = fakeClient();
+    await postGameResult(client, base, GAME);
+    expect(reacted).toEqual([]);
+  });
+
+  it("still posts the result if reacting fails", async () => {
+    // A missing Add Reactions permission must not fail the poll.
+    let sent = false;
+    const client = {
+      channels: {
+        fetch: async () => ({
+          isSendable: () => true,
+          send: async () => {
+            sent = true;
+            return { id: "m1", react: async () => { throw new Error("Missing Permissions"); } };
+          },
+        }),
+      },
+    } as unknown as Client;
+
+    await postGameResult(client, { ...base, injusticeChannelId: "general" }, GAME);
+    expect(sent).toBe(true);
   });
 });
 

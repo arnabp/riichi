@@ -27,10 +27,10 @@ const EMOJI_MODES: Record<string, ReportMode> = {
 };
 
 export interface ReportDeps {
-  // Channel the reports are posted to (the league's #general).
-  reportChannelId: string;
-  // Maps a game-results channel back to the tournament that posts there, so the
-  // report can be labelled. Returning undefined means "not a watched channel".
+  // Maps a game-results channel back to the tournament that posts there, which
+  // carries both the label for the report and the channel it goes to. Returning
+  // undefined means "not a watched channel" — either not a results channel at
+  // all, or a tournament with reporting switched off.
   resolveByChannel: (channelId: string) => TournamentConfig | undefined;
 }
 
@@ -84,7 +84,8 @@ async function handleReaction(
   if (!mode) return;
 
   const config = deps.resolveByChannel(reaction.message.channelId);
-  if (!config) return;
+  if (!config?.injusticeChannelId) return;
+  const reportChannelId = config.injusticeChannelId;
 
   // Reactions on uncached messages arrive partial — the embeds the game id and
   // player count come from are only there after a fetch.
@@ -125,13 +126,13 @@ async function handleReaction(
     console.log(`[Reports] ${user.id} requested ${mode} report for ${gameId}`);
     // Analysis needs a login and a log fetch on first run for a game, so show
     // the typing indicator rather than leaving the channel silent.
-    const channel = await client.channels.fetch(deps.reportChannelId);
+    const channel = await client.channels.fetch(reportChannelId);
     if (channel?.isSendable()) await channel.sendTyping().catch(() => {});
 
     const results = await analyzeGame(gameId, mode, {
       playerCount: parsePlayerCount(msg),
     });
-    await postReport(client, deps.reportChannelId, results, ctx);
+    await postReport(client, reportChannelId, results, ctx);
     console.log(`[Reports] Posted ${mode} report for ${gameId} (${results.length} entries)`);
   } catch (err) {
     console.error(`[Reports] ${mode} report for ${gameId} failed:`, err);

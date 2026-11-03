@@ -8,7 +8,8 @@ export function requireEnv(name: string): string {
 
 // Each tournament is defined by a block of env vars:
 //   TOURNAMENT_1_ID, TOURNAMENT_1_CHANNEL, TOURNAMENT_1_LABEL
-//   TOURNAMENT_1_STATUS_CHANNEL  (optional — enables the status channel feature)
+//   TOURNAMENT_1_STATUS_CHANNEL     (optional — enables the status channel feature)
+//   TOURNAMENT_1_INJUSTICE_CHANNEL  (optional — enables the 📉/📈 reports)
 //   ... and so on for TOURNAMENT_2_*, etc.
 //
 // Env is the baseline; a season rollover can override the id/label at runtime
@@ -22,6 +23,10 @@ export function loadTournaments(): TournamentConfig[] {
       tournamentId: id,
       discordChannelId: requireEnv(`TOURNAMENT_${i}_CHANNEL`),
       statusChannelId: process.env[`TOURNAMENT_${i}_STATUS_CHANNEL`],
+      // INJUSTICE_CHANNEL is the fallback so a single-tournament server — the
+      // normal case — can name its #general once instead of per tournament.
+      injusticeChannelId:
+        process.env[`TOURNAMENT_${i}_INJUSTICE_CHANNEL`] ?? process.env.INJUSTICE_CHANNEL,
       label: process.env[`TOURNAMENT_${i}_LABEL`] ?? `Tournament ${i}`,
     });
   }
@@ -42,15 +47,4 @@ export function loadAdminIds(): Set<string> {
 // Guild the slash commands get registered to.
 export function guildId(): string | undefined {
   return process.env.DISCORD_GUILD_ID;
-}
-
-// Channel the 📉/📈 InjusticeJudge reports get posted to (the league's
-// #general). Unset disables the feature outright: no reactions are added to
-// game results, so nothing invites a click that would go nowhere.
-export function reportChannelId(): string | undefined {
-  return process.env.INJUSTICE_CHANNEL;
-}
-
-export function reportsEnabled(): boolean {
-  return reportChannelId() !== undefined;
 }

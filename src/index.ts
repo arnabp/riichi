@@ -10,7 +10,7 @@ import {
   sendOrUpdateLeaderboard,
   sendOrRecreateQueue,
 } from "./bot.ts";
-import { loadTournaments, requireEnv, guildId, reportChannelId, reportsEnabled } from "./config.ts";
+import { loadTournaments, requireEnv, guildId } from "./config.ts";
 import { registerReportReactions } from "./reports.ts";
 import { SeasonStore } from "./season.ts";
 import { listArchives } from "./archive.ts";
@@ -85,21 +85,26 @@ async function main() {
     console.error("[Main] Slash command registration failed:", err);
   });
 
-  const reportChannel = reportChannelId();
-  if (reportChannel) {
+  const reporting = tournaments.filter((t) => t.injusticeChannelId);
+  if (reporting.length > 0) {
     registerReportReactions(discordClient, {
-      reportChannelId: reportChannel,
       // Reactions only mean something on a game result, so a click is only
       // serviced in a channel some tournament posts results to. Labels come
-      // from the season store for the same reason postGameResult does it.
+      // from the season store for the same reason postGameResult does it, and
+      // the tournament's own config carries where its reports go.
       resolveByChannel: (channelId) => {
         const raw = tournaments.find((t) => t.discordChannelId === channelId);
-        return raw ? seasons.resolve(raw) : undefined;
+        return raw?.injusticeChannelId ? seasons.resolve(raw) : undefined;
       },
     });
-    console.log(`[Main] Injustice/skill reports → channel ${reportChannel}`);
+    for (const t of reporting) {
+      console.log(`[Main] "${t.label}" injustice/skill reports → channel ${t.injusticeChannelId}`);
+    }
   } else {
-    console.log("[Main] INJUSTICE_CHANNEL unset — skipping injustice/skill reports");
+    console.log(
+      "[Main] No TOURNAMENT_n_INJUSTICE_CHANNEL (or INJUSTICE_CHANNEL) set — " +
+      "skipping injustice/skill reports"
+    );
   }
 
   discordClient.on(Events.InteractionCreate, async (interaction) => {
@@ -167,7 +172,7 @@ async function runPoll(
         console.log(
           `[Main] New game in "${config.label}": ${game.paiPuId} — winner: ${game.players[0]?.nickname}`
         );
-        await postGameResult(discordClient, config, game, reportsEnabled());
+        await postGameResult(discordClient, config, game);
       }
 
       // ── Status updates → status channel ──────────────────────────────────

@@ -18,6 +18,10 @@ export interface TournamentConfig {
   tournamentId: string;      // external ID from Riichi City UI
   discordChannelId: string;  // games channel
   statusChannelId?: string;  // optional status channel (leaderboard + queue)
+  // Optional channel for the 📉/📈 InjusticeJudge reports (usually #general).
+  // Unset disables the reports for this tournament. Deliberately never included
+  // in the channels a rollover purges — #general is not the bot's to clear.
+  injusticeChannelId?: string;
   label: string;
 }
 

@@ -68,12 +68,13 @@ export async function postGameResult(
   client: Client,
   config: TournamentConfig,
   game: RCGame,
-  withReportReactions = false,
 ): Promise<void> {
   const channel = await fetchTextChannel(client, config.discordChannelId);
   if (!channel) return;
   const msg = await channel.send({ embeds: [buildResultEmbed(config, game)] });
-  if (withReportReactions) await addReportReactions(msg);
+  // Only seed the buttons where a click has somewhere to post. Reading it off
+  // the config keeps every caller — the poll loop and /season repost — in step.
+  if (config.injusticeChannelId) await addReportReactions(msg);
 }
 
 // Best-effort: a missing Add Reactions permission should not turn a posted

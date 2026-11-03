@@ -17,7 +17,7 @@ import { postSeasonSummary, postGameResult, buildWhatIfEmbeds } from "./bot.ts";
 import { ScoringSettings, SETTINGS } from "./scoring.ts";
 import { recalculate, parseUma, sameSettings } from "./whatif.ts";
 import { purgeChannelSafely, PurgeRefused } from "./purge.ts";
-import { loadAdminIds, reportsEnabled } from "./config.ts";
+import { loadAdminIds } from "./config.ts";
 
 export const SEASON_COMMAND = new SlashCommandBuilder()
   .setName("season")
@@ -180,6 +180,13 @@ async function handleStatus(interaction: ChatInputCommandInteraction, ctx: Admin
         inline: true,
       },
       {
+        name: "Reports channel",
+        value: config.injusticeChannelId
+          ? `<#${config.injusticeChannelId}>`
+          : "*not configured*",
+        inline: true,
+      },
+      {
         name: "Archives on disk",
         value: archives.length
           ? archives.map((a) => `\`${a.split("/").pop()}\``).join("\n")
@@ -310,7 +317,7 @@ async function handleRepost(interaction: ChatInputCommandInteraction, ctx: Admin
   const ordered = [...games].sort((a, b) => a.endTime - b.endTime);
   const labelled = { ...config, label: season.label };
   for (const game of ordered) {
-    await postGameResult(interaction.client, labelled, game, reportsEnabled());
+    await postGameResult(interaction.client, labelled, game);
   }
 
   // These may not be in the seen set — if the state file was cleared, or a game
